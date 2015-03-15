@@ -32,6 +32,7 @@ MswClient.prototype.getRequestEndpoint = function () {
 
 MswClient.prototype.request = function (callback) {
 
+    //TODO : refactor into helpers
     var url = this.getRequestEndpoint();
 
     request.get(url, function (err, response, body) {
