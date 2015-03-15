@@ -1,5 +1,7 @@
 'use strict';
 
+var request = require('request');
+
 var MswClient = function (_config) {
 
     if (!(this instanceof MswClient)) {
@@ -30,6 +32,40 @@ MswClient.prototype.getRequestEndpoint = function () {
 
 MswClient.prototype.request = function (callback) {
 
+    var url = this.getRequestEndpoint();
+
+    request.get(url, function (err, response, body) {
+
+        if (response.statusCode === 500) {
+
+            var error = {
+                status: 'Error',
+                msg: 'Invalid API key or request'
+            };
+
+            callback(error);
+
+        } else {
+
+            try {
+                var data = JSON.parse(body);
+
+                if (data.error_response) {
+                    callback({status: 'Error', msg: 'Invalid parameters'});
+                    return;
+                }
+            }
+            catch (err) {
+
+                callback({status: 'Error', msg: 'Failed to Parse JSON response'});
+                return;
+            }
+
+            callback(null, data);
+        }
+
+
+    })
 
 };
 

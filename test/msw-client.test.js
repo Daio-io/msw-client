@@ -3,12 +3,6 @@ var nock = require('nock');
 
 var MswClient = require('../index');
 
-var API_KEY = '';
-
-var mswApi = nock('http://magicseaweed.com/api')
-    .get('/' + API_KEY);
-
-
 describe('MSW Client', function () {
 
 
@@ -20,9 +14,11 @@ describe('MSW Client', function () {
             expect(function () {
                 new MswClient({neither: ''})
             }).to.throw(Error);
+
             expect(function () {
                 new MswClient({apikey: '', nospot: ''})
             }).to.throw(Error);
+
             expect(function () {
                 new MswClient({spot_id: '', nokey: ''})
             }).to.throw(Error);
@@ -109,11 +105,24 @@ describe('MSW Client', function () {
 
     describe('API Requests', function () {
 
-        it('should return an error if invalid API key was provided request', function (done) {
+        beforeEach(function (done) {
 
-            MswClient = new MswClient({apikey: 'apikey', spot_id: 1});
+            nock.cleanAll();
+            done();
+        });
 
-            MswClient.request(function (err, response) {
+        it('should return an error if invalid API key was provided in request', function (done) {
+
+            var Client = new MswClient({apikey: 'bad_api', spot_id: 1});
+
+            nock('http://magicseaweed.com')
+                .filteringPath(function (path) {
+                    return '/';
+                })
+                .get('/')
+                .reply(500);
+
+            Client.request(function (err, response) {
 
                 expect(err).to.not.be.undefined;
                 expect(response).to.be.undefined;
@@ -129,12 +138,26 @@ describe('MSW Client', function () {
 
         it('should return an error if location is not set correctly', function (done) {
 
-            MswClient = new MswClient({apikey: 'apikey', spot_id: 'not_a_valid_id'});
+            var invalidSpotId = 23892739872398263;
 
-            MswClient.request(function (err, response) {
+            var Client = new MswClient({apikey: 'apikey', spot_id: invalidSpotId});
+
+            nock('http://magicseaweed.com')
+                .filteringPath(function (path) {
+                    return '/';
+                })
+                .get('/')
+                .reply(200, {
+                    error_response: {
+                        code: 501,
+                        error_msg: "Invalid parameters were supplied and did " +
+                        "not pass our validation, please double check your request."
+                    }
+                });
+
+            Client.request(function (err, response) {
 
                 expect(err).to.not.be.undefined;
-                expect(response).to.be.undefined;
                 expect(err.status).to.eql('Error');
                 expect(err.msg).to.eql('Invalid parameters');
 
@@ -146,17 +169,29 @@ describe('MSW Client', function () {
 
         it('should be able to get data from API when call is made', function (done) {
 
+            var Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
-            MswClient = new MswClient({apikey: 'apikey', spot_id: 1});
+            nock('http://magicseaweed.com')
+                .filteringPath(function (path) {
+                    return '/';
+                })
+                .get('/')
+                .reply(200, [{mockData: 'mocked'},
+                    {moreMockData: 'mocked'}]);
 
-            MswClient.request(function (err, response) {
+            Client.request(function (err, response) {
 
-                expect(response).to.not.be.undefined;
+                expect(err).to.not.exist;
                 expect(response).to.be.an('Array');
+                for (var i = 0; i < response.length; i++){
+
+                    expect(response[i]).to.be.an('Object');
+
+                }
+
                 done();
 
             });
-
 
         });
 
