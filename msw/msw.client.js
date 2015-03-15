@@ -2,20 +2,21 @@
 
 var MswClient = function (_config) {
 
-    if( !(this instanceof MswClient) ) {
+    if (!(this instanceof MswClient)) {
         return new MswClient(_config);
     }
 
-    if ( _config.apikey === undefined || _config.spot_id === undefined ){
-        throw new Error('API Key and Spot ID are required config');
-    }
+    validateSpotId(_config.spot_id);
 
     this.apikey = _config.apikey;
     this.spot_id = _config.spot_id;
 
+    this.baseUrl = 'http://magicseaweed.com/api/';
+
 };
 
 MswClient.prototype.setSpotId = function (spotId) {
+    validateSpotId(spotId);
     this.spot_id = spotId;
 };
 
@@ -24,9 +25,24 @@ MswClient.prototype.getSpotId = function () {
 };
 
 MswClient.prototype.getRequestEndpoint = function () {
-    return 'http://magicseaweed.com/api/' + this.apikey + '/forecast?spot_id=' + this.spot_id;
+    return this.baseUrl + this.apikey + '/forecast?spot_id=' + this.spot_id;
 };
 
+MswClient.prototype.request = function (callback) {
+
+
+};
+
+
+/**
+ * @private
+ * @param spot_id
+ */
+function validateSpotId(spot_id) {
+    if (typeof spot_id !== 'number') {
+        throw new Error('Spot Id should be an integer value');
+    }
+}
 
 
 module.exports = MswClient;
