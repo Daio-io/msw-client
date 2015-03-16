@@ -50,7 +50,7 @@ MswClient.request(function (err, response) {
 
 The response will be an array of objects as documented [MSW API](http://magicseaweed.com/developer/forecast-api)
 
-you can also add fields to filter the data you want.
+You can also add fields to filter the data you want.
 
 This can either be done via the constructor:
 
@@ -63,7 +63,7 @@ var MswClient = new MSW({
 });
 ```
 
-or after via functions:
+or at any point in your code via functions:
 
 ```javascript
 MswClient.addField('timestamp') // add single field by string name
@@ -78,6 +78,16 @@ MswClient.removeAllFields() // remove all
 ```
 
 A list of fields are available on the [MSW API site](http://magicseaweed.com/developer/forecast-api)
+
+Feel free to submit issues and contribute.
+
+## TODO
+
+This project is in active development and will be updated. (No breaking changes planned).
+
+- Add jsdoc to code
+
+Surfs Up!
 
 
 
