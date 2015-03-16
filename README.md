@@ -40,6 +40,12 @@ To figure out your spot_id visit the surf report for that beach on the Magic Sea
 
     http://magicseaweed.com/Porthcawl-Rest-Bay-Surf-Report/1449/ - spot id is the last parameter
 
+The spot_id can also be updated at any point:
+
+```javascript
+MswClient.setSpotId(3) // must be a number
+```
+
 To make a request simply call:
 
 ```javascript
