@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Client to talk to the Magic Seaweed API",
   "main": "index.js",
   "scripts": {

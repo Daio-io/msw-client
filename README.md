@@ -7,6 +7,78 @@
 
 ## Description
 
-Node client library to allow easy communication with the Magic Seaweed API
+Node client library to allow easy communication with the [Magic Seaweed API] (http://magicseaweed.com/developer/forecast-api)
 
-Tutorial and release to follow soon
+You will Need to contact Magic Seaweed in order to [get an API key](http://magicseaweed.com/developer/sign-up).
+Please make sure you read their terms first.
+
+# Usage
+
+Available on npm so firstly you need to install into your dependencies:
+
+    npm install msw-client --save
+
+Then use create an instance of the client:
+
+```javascript
+    var MSW = require('msw-client');
+    var MswClient = new MSW(
+    {
+        apikey: 'YOUR_API_KEY',
+        spot_id: 2 // must be a number
+    }
+    );
+```
+
+Both apikey and spot_id are required.
+
+spot_id indicates the spot / beach you want to get forecast data for
+
+    spot_id: 1449 // this is rest bay
+
+To figure out your spot_id visit the surf report for that beach on the magic seaweed website and look at the url:
+
+    http://magicseaweed.com/Porthcawl-Rest-Bay-Surf-Report/1449/ - spot id is the last parameter
+
+To make a request simply call:
+
+```javascript
+MswClient.request(function (err, response) {
+       console.log(response);
+    });
+```
+
+The response will be an array of objects as documented [MSW API](http://magicseaweed.com/developer/forecast-api)
+
+you can also add fields to filter the data you want.
+
+This can either be done via the constructor:
+
+```javascript
+    var MSW = require('msw-client');
+    var MswClient = new MSW(
+    {
+        apikey: 'YOUR_API_KEY',
+        spot_id: 2,
+        fields: ['timestamp', 'wind'] // must be an array
+    }
+    );
+```
+
+or after via functions:
+
+```javascript
+    MswClient.addField('timestamp') // add single field by string name
+    MswClient.addFields(['timestamp', 'wind']) // add fields by array
+```
+
+You can also remove fields:
+
+```javascript
+    MswClient.removeField('timestamp') // remove single field by string name
+    MswClient.removeAllFields() // remove all
+```
+
+
+
+
