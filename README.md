@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/Daveloper87/msw-client.svg)](https://travis-ci.org/Daveloper87/msw-client)
 [![Coverage Status](https://coveralls.io/repos/Daveloper87/msw-client/badge.svg)](https://coveralls.io/r/Daveloper87/msw-client)
+[![NPM](https://img.shields.io/npm/v/msw-client.svg)](https://www.npmjs.com/package/msw-client)
 [![Dependency Status](https://img.shields.io/david/Daveloper87/msw-client.svg)](https://david-dm.org/daveloper87/msw-client)
 [![devDependency Status](https://img.shields.io/david/dev/Daveloper87/msw-client.svg)](https://david-dm.org/daveloper87/msw-client#info=devDependencies)
 
@@ -80,7 +81,7 @@ You can also remove fields:
 
 ```javascript
 MswClient.removeField('timestamp') // remove single field by string name
-MswClient.removeAllFields() // remove all
+MswClient.removeAllFields() // I wonder what this does...
 ```
 
 A list of fields are available on the [MSW API site](http://magicseaweed.com/developer/forecast-api)
