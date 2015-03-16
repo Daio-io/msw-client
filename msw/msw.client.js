@@ -55,7 +55,8 @@ MswClient.prototype.addField = function (fieldName) {
 
 MswClient.prototype.addFields = function (fieldsArray) {
     if ( !Array.isArray(fieldsArray) ) {
-        throw new Error('Using addFields should be an Array. You can add string fields using addField()');
+        throw new Error('Using addFields should be an Array. ' +
+            'You can add string fields using addField()');
     }
     
     var fieldsLength = fieldsArray.length;

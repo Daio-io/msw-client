@@ -6,6 +6,11 @@
   "scripts": {
     "test": "mocha"
   },
+
+   "repository": {
+     "type": "git",
+     "url": "git@github.com:Daveloper87/msw-client.git"
+   },
   "keywords": [
     "magic",
     "seaweed",
