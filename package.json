@@ -4,13 +4,14 @@
   "description": "Client to talk to the Magic Seaweed API",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
   },
-
-   "repository": {
-     "type": "git",
-     "url": "git@github.com:Daveloper87/msw-client.git"
-   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Daveloper87/msw-client.git"
+  },
   "keywords": [
     "magic",
     "seaweed",
@@ -27,7 +28,13 @@
   },
   "devDependencies": {
     "chai": "^2.1.1",
+    "coveralls": "^2.11.2",
     "gulp-mocha": "^2.0.0",
-    "nock": "^1.1.0"
+    "istanbul": "^0.3.8",
+    "jscoverage": "^0.5.9",
+    "mocha": "^2.2.1",
+    "mocha-lcov-reporter": "0.0.2",
+    "nock": "^1.1.0",
+    "nodeunit": "^0.9.1"
   }
 }
