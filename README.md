@@ -18,7 +18,7 @@ Available on npm so firstly you need to install into your dependencies:
 
     npm install msw-client --save
 
-Then use create an instance of the client:
+Then simply create an instance of the client:
 
 ```javascript
 var MSW = require('msw-client');
@@ -34,7 +34,7 @@ spot_id indicates the spot / beach you want to get forecast data for
 
     spot_id: 1449 // this is rest bay
 
-To figure out your spot_id visit the surf report for that beach on the magic seaweed website and look at the url:
+To figure out your spot_id visit the surf report for that beach on the Magic Seaweed website and look at the url:
 
     http://magicseaweed.com/Porthcawl-Rest-Bay-Surf-Report/1449/ - spot id is the last parameter
 
@@ -74,6 +74,8 @@ You can also remove fields:
 MswClient.removeField('timestamp') // remove single field by string name
 MswClient.removeAllFields() // remove all
 ```
+
+A list of fields are available on the [MSW API site](http://magicseaweed.com/developer/forecast-api)
 
 
 
