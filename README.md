@@ -7,12 +7,12 @@
 
 ## Description
 
-Node client library to allow easy communication with the [Magic Seaweed API] (http://magicseaweed.com/developer/forecast-api)
+Node client library to allow easy communication with the [Magic Seaweed API](http://magicseaweed.com/developer/forecast-api)
 
 You will Need to contact Magic Seaweed in order to [get an API key](http://magicseaweed.com/developer/sign-up).
 Please make sure you read their terms first.
 
-# Usage
+## Usage
 
 Available on npm.
 
