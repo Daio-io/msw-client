@@ -79,7 +79,25 @@ describe('MSW Client Fields', function () {
             expect(Client.getFields()).to.not.include(fieldToRemove);
 
         });
-        
+
+        it('should not remove fields if field is not set', function () {
+
+            var field = 'im_a_field';
+            var notField = 'im_not_set';
+
+            Client.addField(field);
+
+            expect(Client.getFields()).to.include(field);
+
+            expect(Client.getFields()).to.not.include(notField);
+
+            Client.removeField('im_not_set');
+
+            expect(Client.getFields()).to.not.include(notField);
+            expect(Client.getFields()).to.include(field);
+
+        });
+
         it('should be able to remove all fields', function () {
 
             var fieldsArray = ['field1', 'field2', 'field3'];
@@ -91,6 +109,22 @@ describe('MSW Client Fields', function () {
             Client.removeAllFields();
 
             expect(Client.getFields()).to.be.empty;
+
+        });
+
+        it('should only accept a string when adding field', function () {
+
+            expect(function () { Client.addField(['array', 'of', 'fields']) })
+                .to.throw(Error);
+
+            expect(function () { Client.addField(2) })
+                .to.throw(Error);
+
+            expect(function () { Client.addField( {field: 'object'} ) })
+                .to.throw(Error);
+
+            expect(function () { Client.addField('fields') })
+                .to.not.throw(Error);
 
         });
 

@@ -100,7 +100,7 @@ describe('API Requests', function () {
     it('should return an error if invalid field is set', function (done) {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: 1});
-        
+
         Client.addField('invalid_field');
 
         nock('http://magicseaweed.com')
@@ -121,6 +121,31 @@ describe('API Requests', function () {
             expect(err).to.not.be.undefined;
             expect(err.status).to.eql('Error');
             expect(err.msg).to.eql('Invalid parameters');
+
+            done();
+
+        });
+
+    });
+
+    it('should return an error if data returned is not JSON', function (done) {
+
+        var Client = new MswClient({apikey: 'apikey', spot_id: 1});
+
+        Client.addField('invalid_field');
+
+        nock('http://magicseaweed.com')
+            .filteringPath(function (path) {
+                return '/';
+            })
+            .get('/')
+            .reply(200, 'this_is_not_json');
+
+        Client.request(function (err, response) {
+
+            expect(err).to.not.be.undefined;
+            expect(err.status).to.eql('Error');
+            expect(err.msg).to.eql('Failed to Parse JSON response');
 
             done();
 
