@@ -21,13 +21,11 @@ Available on npm so firstly you need to install into your dependencies:
 Then use create an instance of the client:
 
 ```javascript
-    var MSW = require('msw-client');
-    var MswClient = new MSW(
-    {
-        apikey: 'YOUR_API_KEY',
-        spot_id: 2 // must be a number
-    }
-    );
+var MSW = require('msw-client');
+var MswClient = new MSW({
+    apikey: 'YOUR_API_KEY',
+    spot_id: 2 // must be a number
+});
 ```
 
 Both apikey and spot_id are required.
@@ -44,8 +42,8 @@ To make a request simply call:
 
 ```javascript
 MswClient.request(function (err, response) {
-       console.log(response);
-    });
+    console.log(response);
+});
 ```
 
 The response will be an array of objects as documented [MSW API](http://magicseaweed.com/developer/forecast-api)
@@ -55,28 +53,26 @@ you can also add fields to filter the data you want.
 This can either be done via the constructor:
 
 ```javascript
-    var MSW = require('msw-client');
-    var MswClient = new MSW(
-    {
-        apikey: 'YOUR_API_KEY',
-        spot_id: 2,
-        fields: ['timestamp', 'wind'] // must be an array
-    }
-    );
+var MSW = require('msw-client');
+var MswClient = new MSW({
+    apikey: 'YOUR_API_KEY',
+    spot_id: 2,
+    fields: ['timestamp', 'wind'] // must be an array
+});
 ```
 
 or after via functions:
 
 ```javascript
-    MswClient.addField('timestamp') // add single field by string name
-    MswClient.addFields(['timestamp', 'wind']) // add fields by array
+MswClient.addField('timestamp') // add single field by string name
+MswClient.addFields(['timestamp', 'wind']) // add fields by array
 ```
 
 You can also remove fields:
 
 ```javascript
-    MswClient.removeField('timestamp') // remove single field by string name
-    MswClient.removeAllFields() // remove all
+MswClient.removeField('timestamp') // remove single field by string name
+MswClient.removeAllFields() // remove all
 ```
 
 
