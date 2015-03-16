@@ -14,7 +14,9 @@ Please make sure you read their terms first.
 
 # Usage
 
-Available on npm so firstly you need to install into your dependencies:
+Available on npm.
+
+firstly you need to install into your dependencies:
 
     npm install msw-client --save
 
