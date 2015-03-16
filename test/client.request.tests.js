@@ -97,7 +97,7 @@ describe('API Requests', function () {
 
     });
 
-    it('should return an error if invalid field is set', function (done) {
+    it('should return an empty array if invalid field is set', function (done) {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
@@ -108,19 +108,12 @@ describe('API Requests', function () {
                 return '/';
             })
             .get('/')
-            .reply(200, {
-                error_response: {
-                    code: 501,
-                    error_msg: "Invalid parameters were supplied and did " +
-                        "not pass our validation, please double check your request."
-                }
-            });
+            .reply(200, []);
 
         Client.request(function (err, response) {
 
-            expect(err).to.not.be.undefined;
-            expect(err.status).to.eql('Error');
-            expect(err.msg).to.eql('Invalid parameters');
+            expect(err).to.be.null;
+            expect(response).to.be.empty;
 
             done();
 
