@@ -1,7 +1,7 @@
 {
   "name": "msw-client",
   "version": "1.0.0",
-  "description": "Client to talk to the Magic Seaweed API",
+  "description": "Node client to talk to the Magic Seaweed API",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -15,6 +15,8 @@
   "keywords": [
     "magic",
     "seaweed",
+    "magicseaweed",
+    "msw",
     "client",
     "api",
     "surf",
