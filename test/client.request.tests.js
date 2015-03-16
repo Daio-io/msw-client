@@ -51,7 +51,7 @@ describe('API Requests', function () {
                 error_response: {
                     code: 501,
                     error_msg: "Invalid parameters were supplied and did " +
-                    "not pass our validation, please double check your request."
+                        "not pass our validation, please double check your request."
                 }
             });
 
@@ -76,8 +76,10 @@ describe('API Requests', function () {
                 return '/';
             })
             .get('/')
-            .reply(200, [{mockData: 'mocked'},
-                {moreMockData: 'mocked'}]);
+            .reply(200, [
+                {mockData: 'mocked'},
+                {moreMockData: 'mocked'}
+            ]);
 
         Client.request(function (err, response) {
 
@@ -88,6 +90,37 @@ describe('API Requests', function () {
                 expect(response[i]).to.be.an('Object');
 
             }
+
+            done();
+
+        });
+
+    });
+
+    it('should return an error if invalid field is set', function (done) {
+
+        var Client = new MswClient({apikey: 'apikey', spot_id: 1});
+        
+        Client.addField('invalid_field');
+
+        nock('http://magicseaweed.com')
+            .filteringPath(function (path) {
+                return '/';
+            })
+            .get('/')
+            .reply(200, {
+                error_response: {
+                    code: 501,
+                    error_msg: "Invalid parameters were supplied and did " +
+                        "not pass our validation, please double check your request."
+                }
+            });
+
+        Client.request(function (err, response) {
+
+            expect(err).to.not.be.undefined;
+            expect(err.status).to.eql('Error');
+            expect(err.msg).to.eql('Invalid parameters');
 
             done();
 
