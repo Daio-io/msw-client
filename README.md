@@ -41,7 +41,7 @@ To figure out your spot_id visit the surf report for that beach on the Magic Sea
 
     http://magicseaweed.com/Porthcawl-Rest-Bay-Surf-Report/1449/ - spot id is the last parameter
 
-The spot_id can also be retrieved or updated at any point:
+Once set in the constructor, the spot_id can be retrieved or updated at any point:
 
 ```javascript
 MswClient.getSpotId() // 2
@@ -86,7 +86,7 @@ MswClient.removeField('timestamp') // remove single field by string name
 MswClient.removeAllFields() // I wonder what this does...
 ```
 
-A list of fields are available on the [MSW API site](http://magicseaweed.com/developer/forecast-api)
+A list of fields are available based on the response data. More details here: [MSW API](http://magicseaweed.com/developer/forecast-api)
 
 Feel free to submit issues and contribute.
 
