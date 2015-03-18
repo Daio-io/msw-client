@@ -1,7 +1,32 @@
 'use strict';
 
+/**
+ * MswClient module.
+ * @module msw.client
+ */
+
+
 var request = require('request');
 
+/**
+ * Magic Seaweed Client Object
+ * @constructor
+ * @param {Object} _config - configuration object needed to instantiate client
+ *
+ * @description The MswClient allows easy communication with the Magic Seaweed API.
+ * Configuration apikey and spot_id are required on creation. Optional fields can also
+ * be passed in with the configuration if required.
+ *
+ * @example
+ * // Create new instance of MswClient
+ * var MSW = require('msw-client');
+ * var MswClient = new MSW({
+ *     apikey: 'YOUR_API_KEY',
+ *     spot_id: 2, // must be a number
+ *     fields: ['timestamp', 'wind'] // Optional array of fields
+ * });
+ *
+ */
 var MswClient = function (_config) {
 
     if (!(this instanceof MswClient)) {
