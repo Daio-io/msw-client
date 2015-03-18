@@ -94,7 +94,6 @@ Feel free to submit issues and contribute.
 
 This project is in active development and will be updated. (No breaking changes planned).
 
-- Add jsdoc to code
 - Event Emitters 
 
 Surfs Up!
