@@ -35,11 +35,8 @@ var MswClient = function (_config) {
     
     this.apikey = _config.apikey;
     this.setSpotId(_config.spot_id);
-
     this.fields = _config.fields || [];
-
     this.baseUrl = 'http://magicseaweed.com/api/';
-    
     this.requestEndpoint = this.baseUrl + this.apikey + '/forecast?spot_id=';
     
 };
@@ -148,7 +145,7 @@ MswClient.prototype.addField = function (fieldName) {
 };
 
 /**
- * Adds a fields to filter data from MSW
+ * Adds a field to filter data from MSW
  * @memberOf MswClient
  * @instance
  * @method addFields
@@ -182,7 +179,7 @@ MswClient.prototype.addFields = function (fieldsArray) {
 };
 
 /**
- * Get all set fields from your requests
+ * Get all currently set fields
  * @memberOf MswClient
  * @instance
  * @method getFields
@@ -203,7 +200,7 @@ MswClient.prototype.getFields = function () {
 };
 
 /**
- * Removes a field from your requests
+ * Removes the specified field
  * @memberOf MswClient
  * @instance
  * @method removeField
@@ -231,7 +228,7 @@ MswClient.prototype.removeField = function (fieldName) {
 };
 
 /**
- * Removes all set fields from your requests
+ * Removes all set fields
  * @memberOf MswClient
  * @instance
  * @method removeFields
@@ -262,7 +259,7 @@ MswClient.prototype.removeAllFields = function () {
  * @description Allows you to make a request to return data from the Magic Seaweed API.
  *
  * @example
- * // In your code make a request
+ * // In your code to make a request
  * MswClient.request( function (err, data) {
  *
  *      if (err) {
@@ -280,16 +277,13 @@ MswClient.prototype.request = function (callback) {
 
     var url = this.getRequestEndpoint();
 
-    request.get(url, function (err, response, body) {
+    request.get(url, function (error, response, body) {
+        
+        var statusCode = response.statusCode;
 
-        if (response.statusCode === 500) {
+        if (statusCode && statusCode === 500) {
 
-            var error = {
-                status: 'Error',
-                msg: 'Invalid API key or request'
-            };
-
-            callback(error);
+            callback( {status: 'Error', msg: 'Invalid API key or request'} );
 
         } else {
 
@@ -297,13 +291,14 @@ MswClient.prototype.request = function (callback) {
                 var data = JSON.parse(body);
 
                 if (data.error_response) {
-                    callback({status: 'Error', msg: 'Invalid parameters'});
+                    
+                    callback( {status: 'Error', msg: 'Invalid parameters'} );
                     return;
                 }
-            }
-            catch (err) {
+                
+            } catch (err) {
 
-                callback({status: 'Error', msg: 'Failed to Parse JSON response'});
+                callback( {status: 'Error', msg: 'Failed to Parse JSON response'} );
                 return;
             }
 
