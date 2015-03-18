@@ -278,10 +278,10 @@ MswClient.prototype.request = function (callback) {
     var url = this.getRequestEndpoint();
 
     request.get(url, function (error, response, body) {
-        
+
         var statusCode = response.statusCode;
 
-        if (statusCode && statusCode === 500) {
+        if (statusCode === 500) {
 
             callback( {status: 'Error', msg: 'Invalid API key or request'} );
 
