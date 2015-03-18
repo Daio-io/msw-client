@@ -10,6 +10,7 @@ var request = require('request');
 
 /**
  * Magic Seaweed Client Object
+ * @namespace MswClient
  * @constructor
  * @param {Object} _config - configuration object needed to instantiate client
  *
@@ -45,6 +46,24 @@ var MswClient = function (_config) {
     
 };
 
+/**
+ * Change the spot id for requests
+ * @memberOf MswClient
+ * @instance
+ * @method setSpotId
+ * @param {number} spotId - Id number of spot / beach location
+ *
+ * @description MswClient uses a spotId to provide data for that spot / beach location on
+ * successful request. This method allows you to update the spotId so the location
+ * can be changed at any point during runtime.
+ * To find your spot_id visit the surf report for that beach on the Magic Seaweed website and look at the url:
+ * http://magicseaweed.com/Porthcawl-Rest-Bay-Surf-Report/1449/ - spot id is the last parameter
+ *
+ * @example
+ * // In your code set a new spot id
+ * MswClient.setSpotId(5); //  change spot id to location 5
+ *
+ */
 MswClient.prototype.setSpotId = function (spotId) {
     validateSpotId(spotId);
     this.spot_id = spotId;
