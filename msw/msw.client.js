@@ -2,9 +2,8 @@
 
 /**
  * MswClient module.
- * @module msw.client
+ * @module MswClient
  */
-
 
 var request = require('request');
 
@@ -33,11 +32,10 @@ var MswClient = function (_config) {
     if (!(this instanceof MswClient)) {
         return new MswClient(_config);
     }
-
-    validateSpotId(_config.spot_id);
-
+    
     this.apikey = _config.apikey;
-    this.spot_id = _config.spot_id;
+    this.setSpotId(_config.spot_id);
+
     this.fields = _config.fields || [];
 
     this.baseUrl = 'http://magicseaweed.com/api/';
@@ -65,77 +63,219 @@ var MswClient = function (_config) {
  *
  */
 MswClient.prototype.setSpotId = function (spotId) {
-    validateSpotId(spotId);
+    if (typeof spotId !== 'number') {
+        throw new Error('Spot Id should be an integer value');
+    }
+    
     this.spot_id = spotId;
 };
 
+/**
+ * Get the currently set spot id for requests
+ * @memberOf MswClient
+ * @instance
+ * @method getSpotId
+ * @returns {number} spotId - Id number of spot / beach location.
+ *
+ * @description MswClient uses a spotId to provide data for that spot / beach location on
+ * successful request. This method allows you to get the current spot id for requests.
+ *
+ * @example
+ * // In your code get spot id
+ * MswClient.getSpotId(); //  return value
+ *
+ */
 MswClient.prototype.getSpotId = function () {
     return this.spot_id;
 };
 
+/**
+ * Get the full request endpoint
+ * @memberOf MswClient
+ * @instance
+ * @method getRequestEndpoint
+ * @returns {string} requestEndpoint - The full URL endpoint (including any filters) for current requests.
+ *
+ * @description Method to return the full constructed URL endpoint, including any set parameters and fields,
+ * for the Magic Seaweed API.
+ *
+ * @example
+ * // In your code get request endpoint
+ * MswClient.getRequestEndpoint(); //  return string URL
+ *
+ */
 MswClient.prototype.getRequestEndpoint = function () {
-    
+
     var endpoint = this.requestEndpoint + this.spot_id;
-    
+
     if (this.fields.length > 0){
-        
+
         endpoint += '&fields=' + this.fields.join(',');
-        
+
     }
-    
+
     return endpoint;
 };
 
+/**
+ * Adds a field to filter data from MSW
+ * @memberOf MswClient
+ * @instance
+ * @method addField
+ * @param {string} fieldName - Field name to be set for requests
+ *
+ * @description MswClient allows use of fields to filter data returned from Magic Seaweed API to only include
+ * data from those fields. This method allows you to add single fields to your requests.
+ * If you try to add an existing field it will not duplicate.
+ *
+ * @example
+ * // In your code add a field
+ * MswClient.addField('timestamp');
+ * MswClient.addField('wind');
+ *
+ * // All proceeding requests will only include data from these fields.
+ *
+ */
 MswClient.prototype.addField = function (fieldName) {
-  
+
     if(typeof fieldName !== 'string'){
         throw new Error ('Field must be a string value');
     }
     if (this.fields.indexOf(fieldName) === -1) {
         this.fields.push(fieldName);
     }
-    
+
 };
 
+/**
+ * Adds a fields to filter data from MSW
+ * @memberOf MswClient
+ * @instance
+ * @method addFields
+ * @param {Array} fieldsArray - String Array of field names to be set for requests
+ *
+ * @description MswClient allows use of fields to filter data returned from Magic Seaweed API to only include
+ * data from those fields. This method allows you to add multiple fields to your requests.
+ * If you try to add an existing field it will not duplicate.
+ *
+ * @example
+ * // In your code add fields
+ * MswClient.addFields(['timestamp', 'wind']);
+ *
+ * // All proceeding requests will only include data from these fields.
+ *
+ */
 MswClient.prototype.addFields = function (fieldsArray) {
     if ( !Array.isArray(fieldsArray) ) {
         throw new Error('Using addFields should be an Array. ' +
             'You can add string fields using addField()');
     }
-    
+
     var fieldsLength = fieldsArray.length;
-    
+
     for (var i = 0; i < fieldsLength; i++){
-        
+
         this.addField(fieldsArray[i]);
-        
-    }
-    
-};
 
-MswClient.prototype.removeField = function (fieldName) {
-
-    var fieldIndex = this.fields.indexOf(fieldName);
-    
-    if (fieldIndex !== -1){
-        this.fields.splice(fieldIndex, 1);
     }
 
 };
 
-
-MswClient.prototype.removeAllFields = function () {
-
-    this.fields = [];
-
-};
-
+/**
+ * Get all set fields from your requests
+ * @memberOf MswClient
+ * @instance
+ * @method getFields
+ * @returns {Array} - String Array of all fields currently set (Empty if no fields set).
+ *
+ * @description MswClient allows use of fields to filter data returned from Magic Seaweed API to only include
+ * data from those fields. This method allows you to get a list of fields set.
+ *
+ * @example
+ * // In your code get fields
+ * MswClient.getFields(); // returns ['timestamp', 'wind'];
+ *
+ */
 MswClient.prototype.getFields = function () {
 
     return this.fields;
 
 };
 
+/**
+ * Removes a field from your requests
+ * @memberOf MswClient
+ * @instance
+ * @method removeField
+ * @param {string} fieldName - Field name to be removed
+ *
+ * @description MswClient allows use of fields to filter data returned from Magic Seaweed API to only include
+ * data from those fields. This method allows you to remove single fields from your requests.
+ * If you try to remove a field that does not it exist, it will be ignored.
+ *
+ * @example
+ * // In your code remove a field
+ * MswClient.removeField('timestamp');
+ *
+ * // All proceeding requests will no longer include this field.
+ *
+ */
+MswClient.prototype.removeField = function (fieldName) {
+
+    var fieldIndex = this.fields.indexOf(fieldName);
+
+    if (fieldIndex !== -1){
+        this.fields.splice(fieldIndex, 1);
+    }
+
+};
+
+/**
+ * Removes all set fields from your requests
+ * @memberOf MswClient
+ * @instance
+ * @method removeFields
+ *
+ * @description MswClient allows use of fields to filter data returned from Magic Seaweed API to only include
+ * data from those fields. This method allows you to remove all fields set.
+ *
+ * @example
+ * // In your code remove fields
+ * MswClient.removeFields();
+ *
+ * // All proceeding requests will no longer include any fields.
+ *
+ */
+MswClient.prototype.removeAllFields = function () {
+
+    this.fields = [];
+
+};
+
+/**
+ * Makes a request to the Magic Seaweed API
+ * @memberOf MswClient
+ * @instance
+ * @method request
+ * @param {function} callback - Callback function which takes an error and data parameter. callback(err, data);
+ *
+ * @description Allows you to make a request to return data from the Magic Seaweed API.
+ *
+ * @example
+ * // In your code make a request
+ * MswClient.request( function (err, data) {
+ *
+ *      if (err) {
+ *          console.log(err); // {status: 'Error', msg: 'Error message here'}
+ *          console.log(data); // undefined
+ *      }
+ *
+ *      console.log(err); // undefined if no error
+ *      console.log(data); // This will return Array of Objects as per Magic Seaweed response Documentation
+ *
+ * });
+ *
+ */
 MswClient.prototype.request = function (callback) {
 
     var url = this.getRequestEndpoint();
@@ -172,17 +312,5 @@ MswClient.prototype.request = function (callback) {
 
     })
 };
-
-
-/**
- * @private
- * @param spot_id
- */
-function validateSpotId(spot_id) {
-    if (typeof spot_id !== 'number') {
-        throw new Error('Spot Id should be an integer value');
-    }
-}
-
 
 module.exports = MswClient;
