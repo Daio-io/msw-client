@@ -44,8 +44,8 @@ To figure out your spot_id visit the surf report for that beach on the Magic Sea
 Once set in the constructor, the spot_id can be retrieved or updated at any point:
 
 ```javascript
-MswClient.getSpotId() // 2
-MswClient.setSpotId(3) // must be a number
+MswClient.getSpotId(); // 2
+MswClient.setSpotId(3); // must be a number
 ```
 
 To make a request simply call:
@@ -74,16 +74,16 @@ var MswClient = new MSW({
 or at any point in your code via functions:
 
 ```javascript
-MswClient.addField('timestamp') // add single field by string name
-MswClient.addFields(['timestamp', 'wind']) // add fields by array
+MswClient.addField('timestamp'); // add single field by string name
+MswClient.addFields(['timestamp', 'wind']); // add fields by array
 ```
 
 You can also retrieve and remove fields:
 
 ```javascript
-MswClient.getFields() // ['timestamp', 'wind'] returns fields array
-MswClient.removeField('timestamp') // remove single field by string name
-MswClient.removeAllFields() // I wonder what this does...
+MswClient.getFields(); // ['timestamp', 'wind'] returns fields array
+MswClient.removeField('timestamp'); // remove single field by string name
+MswClient.removeAllFields(); // I wonder what this does...
 ```
 
 A list of fields are available based on the response data. More details here: [MSW API](http://magicseaweed.com/developer/forecast-api)
