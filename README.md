@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/Daveloper87/msw-client.svg)](https://travis-ci.org/Daveloper87/msw-client)
 [![Coverage Status](https://coveralls.io/repos/Daveloper87/msw-client/badge.svg)](https://coveralls.io/r/Daveloper87/msw-client)
+[![Code Climate](https://codeclimate.com/github/Daveloper87/msw-client/badges/gpa.svg)](https://codeclimate.com/github/Daveloper87/msw-client)
 [![NPM](https://img.shields.io/npm/v/msw-client.svg)](https://www.npmjs.com/package/msw-client)
 [![Dependency Status](https://img.shields.io/david/Daveloper87/msw-client.svg)](https://david-dm.org/daveloper87/msw-client)
 [![devDependency Status](https://img.shields.io/david/dev/Daveloper87/msw-client.svg)](https://david-dm.org/daveloper87/msw-client#info=devDependencies)
