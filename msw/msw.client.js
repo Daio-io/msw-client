@@ -296,16 +296,17 @@ MswClient.prototype.request = function (callback) {
                     return;
                 }
                 
+                callback(null, data);
+                
             } catch (err) {
 
                 callback( {status: 'Error', msg: 'Failed to Parse JSON response'} );
-                return;
+            
             }
 
-            callback(null, data);
         }
 
-    })
+    });
 };
 
 module.exports = MswClient;
