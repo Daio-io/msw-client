@@ -39,16 +39,16 @@ describe('MSW Client Units', function () {
 
         });
 
-        it('should be able add individual fields', function () {
+        it('should be able add set unit', function () {
 
 
             var unit = 'us';
 
-            Client.setUnits(unit);
+            Client.setUnit(unit);
 
             var setUnit = Client.getUnit();
 
-            expect(setUnit).to.include(unit);
+            expect(setUnit).to.eql(unit);
 
         });
 
@@ -75,6 +75,17 @@ describe('MSW Client Units', function () {
 
         });
 
+        it('should not allow upper case units', function () {
+
+            var upperUnit = 'UK';
+            expect(function () {
+
+                setUnit(upperUnit)
+
+            }).to.throw(Error);
+
+        });
+
         it('should be able to change units', function () {
 
             var unit = 'uk';
@@ -93,16 +104,6 @@ describe('MSW Client Units', function () {
         it('should default to uk if unit not set', function () {
 
             expect(Client.getUnit()).to.eql('uk');
-
-        });
-
-        it('should change unit to lower case', function () {
-
-            var upperUnit = 'US';
-
-            Client.setUnit(upperUnit);
-
-            expect(Client.getUnit).to.eql(upperUnit.toLowerCase());
 
         });
 
@@ -143,7 +144,7 @@ describe('MSW Client Units', function () {
 
         });
 
-        it('should update the request endpoint with the set fields', function () {
+        it('should update the request endpoint with the set unit', function () {
 
             var unit = 'us';
 

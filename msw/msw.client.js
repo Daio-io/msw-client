@@ -8,6 +8,14 @@
 var got = require('got');
 
 /**
+ * @namespace MswClient
+ *
+ * @description List of valid countries that can be used for data unit responses
+ * @type {string[]}
+ */
+var validUnits = ['uk', 'us', 'eu'];
+
+/**
  * Magic Seaweed Client Object
  * @namespace MswClient
  * @constructor
@@ -32,9 +40,12 @@ var MswClient = function (_config) {
     if (!(this instanceof MswClient)) {
         return new MswClient(_config);
     }
-    
+
+    var unit = _config.unit || 'uk';
+
     this.apikey = _config.apikey;
     this.setSpotId(_config.spot_id);
+    this.setUnit(unit);
     this.fields = _config.fields || [];
     this.baseUrl = 'http://magicseaweed.com/api/';
     this.requestEndpoint = this.baseUrl + this.apikey + '/forecast?spot_id=';
@@ -86,6 +97,49 @@ MswClient.prototype.getSpotId = function () {
     return this.spot_id;
 };
 
+
+/**
+ * Set unit for requests
+ * @memberOf MswClient
+ * @instance
+ * @method setUnit
+ * @param {string} unit - Unit country code - 'uk', 'us' or 'eu'
+ *
+ * @description MswClient uses a unit value to change the units for measurement and temperature.
+ * You can set the unit to one of these valid values: 'uk', 'us' or 'eu'. This defaults to 'uk' if not set.
+ *
+ * @example
+ * // In your code set a new spot id
+ * MswClient.setUnit('us'); //  set Unit to us e.g. temperature will be F
+ *
+ */
+MswClient.prototype.setUnit = function (unit) {
+    if (typeof unit !== 'string' || validUnits.indexOf(unit) === -1) {
+        throw new Error('Unit should be a lowercase String value and one of these valid' +
+        'units: ' + validUnits);
+    }
+
+    this.unit = unit;
+};
+
+/**
+ * Get the currently set spot id for requests
+ * @memberOf MswClient
+ * @instance
+ * @method getUnit
+ * @returns {String} unit - Currently set country unit
+ *
+ * @description MswClient uses a unit value to change the measurements and temperatures to default
+ *
+ * @example
+ * // In your code get the set unit
+ * MswClient.getUnit('uk'); //  returns value
+ *
+ */
+MswClient.prototype.getUnit = function () {
+    return this.unit;
+};
+
 /**
  * Get the full request endpoint
  * @memberOf MswClient
@@ -103,7 +157,7 @@ MswClient.prototype.getSpotId = function () {
  */
 MswClient.prototype.getRequestEndpoint = function () {
 
-    var endpoint = this.requestEndpoint + this.spot_id;
+    var endpoint = this.requestEndpoint + this.spot_id + this._getUnitQueryString();
 
     if (this.fields.length > 0){
 
@@ -112,6 +166,26 @@ MswClient.prototype.getRequestEndpoint = function () {
     }
 
     return endpoint;
+};
+
+/**
+ * Create a string for the unit endpoint query
+ * @memberOf MswClient
+ * @private
+ * @method _getUnitQueryString
+ * @returns {string} unitQueryString - The query param for a valid unit
+ *
+ * @description Helper function to attach the unit to query params on request.
+ *
+ */
+MswClient.prototype._getUnitQueryString = function () {
+
+    if (this.unit === 'uk'){
+        return '';
+    }
+
+    return '&unit=' + this.unit;
+
 };
 
 /**
