@@ -77,7 +77,7 @@ var MSW = require('msw-client');
 var MswClient = new MSW({
     apikey: 'YOUR_API_KEY',
     spot_id: 2 // must be a number
-    unit: 'us' // must be a string
+    units: 'us' // must be a string
 });
 ```
 or via the setUnits function
