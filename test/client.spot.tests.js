@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 
 var MswClient = require('../index');
 
-describe('MSW Cient Spot Id', function () {
+describe('MSW Client Spot Id', function () {
 
     var Client;
 
