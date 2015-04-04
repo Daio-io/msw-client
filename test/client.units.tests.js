@@ -3,32 +3,32 @@ var nock = require('nock');
 
 var MswClient = require('../index');
 
-describe('MSW Client Units', function () {
+describe('MSW Client units', function () {
 
-    describe('Constructor Units', function () {
+    describe('Constructor units', function () {
 
-        it('should be able to optionally set unit on client construction', function () {
+        it('should be able to optionally set units on client construction', function () {
 
-            var unit = 'us';
+            var units = 'us';
 
             var NewClient = new MswClient(
                 {
                     apikey: 'apikey',
                     spot_id: 1,
-                    unit: unit
+                    units: units
 
                 });
 
             expect(NewClient.getRequestEndpoint()).
-                to.eql('http://magicseaweed.com/api/apikey/forecast?spot_id=1&unit=' + unit);
+                to.eql('http://magicseaweed.com/api/apikey/forecast?spot_id=1&units=' + units);
 
-            expect(NewClient.getUnit()).to.eql(unit);
+            expect(NewClient.getUnits()).to.eql(units);
 
         });
     });
 
 
-    describe('get and set Units', function () {
+    describe('get and set units', function () {
 
         var Client;
 
@@ -39,16 +39,16 @@ describe('MSW Client Units', function () {
 
         });
 
-        it('should be able add set unit', function () {
+        it('should be able add set units', function () {
 
 
-            var unit = 'us';
+            var units = 'us';
 
-            Client.setUnit(unit);
+            Client.setUnits(units);
 
-            var setUnit = Client.getUnit();
+            var setUnits = Client.getUnits();
 
-            expect(setUnit).to.eql(unit);
+            expect(setUnits).to.eql(units);
 
         });
 
@@ -60,16 +60,16 @@ describe('MSW Client Units', function () {
 
                 expect(function () {
 
-                    Client.setUnit(validUnts[i])
+                    Client.setUnits(validUnts[i])
 
                 }).to.not.throw(Error);
 
             }
 
-            var invalidUnit = 'pa';
+            var invalidunits = 'pa';
             expect(function () {
 
-                setUnit(invalidUnit)
+                setUnits(invalidunits)
 
             }).to.throw(Error);
 
@@ -77,10 +77,10 @@ describe('MSW Client Units', function () {
 
         it('should not allow upper case units', function () {
 
-            var upperUnit = 'UK';
+            var upperunits = 'UK';
             expect(function () {
 
-                setUnit(upperUnit)
+                setUnits(upperunits)
 
             }).to.throw(Error);
 
@@ -88,44 +88,44 @@ describe('MSW Client Units', function () {
 
         it('should be able to change units', function () {
 
-            var unit = 'uk';
-            var unitToChangeTo = 'eu';
+            var units = 'uk';
+            var unitsToChangeTo = 'eu';
 
-            Client.setUnit(unit);
+            Client.setUnits(units);
 
-            expect(Client.getUnit()).to.eql(unit);
+            expect(Client.getUnits()).to.eql(units);
 
-            Client.setUnit(unitToChangeTo);
+            Client.setUnits(unitsToChangeTo);
 
-            expect(Client.getUnit()).to.eql(unitToChangeTo);
-
-        });
-
-        it('should default to uk if unit not set', function () {
-
-            expect(Client.getUnit()).to.eql('uk');
+            expect(Client.getUnits()).to.eql(unitsToChangeTo);
 
         });
 
-        it('should only take a string value as unit', function () {
+        it('should default to uk if units not set', function () {
+
+            expect(Client.getUnits()).to.eql('uk');
+
+        });
+
+        it('should only take a string value as units', function () {
 
             expect(function () {
-                Client.setUnit(['array', 'of', 'units'])
+                Client.setUnits(['array', 'of', 'units'])
             })
                 .to.throw(Error);
 
             expect(function () {
-                Client.setUnit(2)
+                Client.setUnits(2)
             })
                 .to.throw(Error);
 
             expect(function () {
-                Client.setUnit({unit: 'object'})
+                Client.setUnits({units: 'object'})
             })
                 .to.throw(Error);
 
             expect(function () {
-                Client.setUnit('uk')
+                Client.setUnits('uk')
             })
                 .to.not.throw(Error);
 
@@ -133,7 +133,7 @@ describe('MSW Client Units', function () {
 
     });
 
-    describe('Endpoint with Units', function () {
+    describe('Endpoint with units', function () {
 
         var Client;
 
@@ -144,24 +144,24 @@ describe('MSW Client Units', function () {
 
         });
 
-        it('should update the request endpoint with the set unit', function () {
+        it('should update the request endpoint with the set units', function () {
 
-            var unit = 'us';
+            var units = 'us';
 
-            Client.setUnit(unit);
+            Client.setUnits(units);
 
             expect(Client.getRequestEndpoint())
                 .to
-                .eql('http://magicseaweed.com/api/apikey/forecast?spot_id=1&unit=' + unit);
+                .eql('http://magicseaweed.com/api/apikey/forecast?spot_id=1&units=' + units);
 
 
         });
 
-        it('should not show unit if uk is set (default)', function () {
+        it('should not show units if uk is set (default)', function () {
 
-            var unit = 'uk';
+            var units = 'uk';
 
-            Client.setUnit(unit);
+            Client.setUnits(units);
 
             var endPoint = Client.getRequestEndpoint();
 
@@ -171,7 +171,7 @@ describe('MSW Client Units', function () {
 
             expect(endPoint)
                 .to.not
-                .eql('http://magicseaweed.com/api/apikey/forecast?spot_id=1&unit=' + unit);
+                .eql('http://magicseaweed.com/api/apikey/forecast?spot_id=1&units=' + units);
 
         });
 

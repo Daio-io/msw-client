@@ -8,7 +8,7 @@
 var got = require('got');
 
 /**
- * @description List of valid countries that can be used for data unit responses
+ * @description List of valid countries that can be used for data units responses
  * @type {string[]}
  */
 var validUnits = ['uk', 'us', 'eu'];
@@ -39,11 +39,11 @@ var MswClient = function (_config) {
         return new MswClient(_config);
     }
 
-    var unit = _config.unit || 'uk';
+    var units = _config.units || 'uk';
 
     this.apikey = _config.apikey;
     this.setSpotId(_config.spot_id);
-    this.setUnit(unit);
+    this.setUnits(units);
     this.fields = _config.fields || [];
     this.baseUrl = 'http://magicseaweed.com/api/';
     this.requestEndpoint = this.baseUrl + this.apikey + '/forecast?spot_id=';
@@ -97,52 +97,52 @@ MswClient.prototype.getSpotId = function () {
 
 
 /**
- * Set unit for requests
+ * Set units for requests
  * @memberOf MswClient
  * @instance
- * @method setUnit
- * @param {string} unit - Unit country code - 'uk', 'us' or 'eu'
+ * @method setUnits
+ * @param {string} units - Unit country code - 'uk', 'us' or 'eu'
  *
- * @description MswClient uses a unit value to change the measurements and temperature.
+ * @description MswClient uses a units value to change the measurements and temperature.
  * i.e. us will have F instead of C for temperature.
- * You can set the unit to one of these valid values: 'uk', 'us' or 'eu'. This defaults to 'uk' if not set.
+ * You can set the units to one of these valid values: 'uk', 'us' or 'eu'. This defaults to 'uk' if not set.
  *
  * @example
  * // In your code set a new spot id
- * MswClient.setUnit('us'); //  set Unit to us e.g. temperature will be F
+ * MswClient.setUnits('us'); //  set Unit to us e.g. temperature will be F
  *
  */
-MswClient.prototype.setUnit = function (unit) {
-    if (typeof unit !== 'string' || validUnits.indexOf(unit) === -1) {
+MswClient.prototype.setUnits = function (units) {
+    if (typeof units !== 'string' || validUnits.indexOf(units) === -1) {
         throw new Error('Unit should be a lowercase String value and one of these valid' +
         'units: ' + validUnits);
     }
 
-    this.unit = unit;
+    this.units = units;
 };
 
 /**
  * Get the currently set spot id for requests
  * @memberOf MswClient
  * @instance
- * @method getUnit
- * @returns {String} unit - Currently set country unit
+ * @method getUnits
+ * @returns {String} units - Currently set country units
  *
- * @description MswClient uses a unit value to change the measurements and temperature.
+ * @description MswClient uses a units value to change the measurements and temperature.
  * i.e. us will have F instead of C for temperature. This method returns
- * the currently set unit. The default value is 'uk' if not set.
+ * the currently set units. The default value is 'uk' if not set.
  *
  * @example
- * // In your code get the set unit
- * MswClient.getUnit(); //  returns value 'uk'
+ * // In your code get the set units
+ * MswClient.getUnits(); //  returns value 'uk'
  *
- * MswClient.setUnit('us');
+ * MswClient.setUnits('us');
  *
- * MswClient.getUnit(); //  returns value 'us'
+ * MswClient.getUnits(); //  returns value 'us'
  *
  */
-MswClient.prototype.getUnit = function () {
-    return this.unit;
+MswClient.prototype.getUnits = function () {
+    return this.units;
 };
 
 /**
@@ -174,22 +174,22 @@ MswClient.prototype.getRequestEndpoint = function () {
 };
 
 /**
- * Create a string for the unit endpoint query
+ * Create a string for the units endpoint query
  * @memberOf MswClient
  * @private
  * @method _getUnitQueryString
- * @returns {string} unitQueryString - The query param for a valid unit
+ * @returns {string} unitQueryString - The query param for a valid units
  *
- * @description Helper function to attach the unit to query params on request.
+ * @description Helper function to attach the units to query params on request.
  *
  */
 MswClient.prototype._getUnitQueryString = function () {
 
-    if (this.unit === 'uk'){
+    if (this.units === 'uk'){
         return '';
     }
 
-    return '&unit=' + this.unit;
+    return '&units=' + this.units;
 
 };
 
