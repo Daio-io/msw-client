@@ -80,17 +80,17 @@ var MswClient = new MSW({
     unit: 'us' // must be a string
 });
 ```
-or via the setUnit function
+or via the setUnits function
 
 ```javascript
-MswClient.setUnit('us');
-MswClient.getUnit(); returns 'us';
+MswClient.setUnits('us');
+MswClient.getUnits(); returns 'us';
 ```
 
 If not set it will default to uk
 
 ```javascript
-MswClient.getUnit(); returns 'uk';
+MswClient.getUnits(); returns 'uk';
 ```
 
 ### Fields
