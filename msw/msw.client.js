@@ -105,7 +105,8 @@ MswClient.prototype.getSpotId = function () {
  * @method setUnit
  * @param {string} unit - Unit country code - 'uk', 'us' or 'eu'
  *
- * @description MswClient uses a unit value to change the units for measurement and temperature.
+ * @description MswClient uses a unit value to change the measurements and temperature.
+ * i.e. us will have F instead of C for temperature.
  * You can set the unit to one of these valid values: 'uk', 'us' or 'eu'. This defaults to 'uk' if not set.
  *
  * @example
@@ -129,11 +130,17 @@ MswClient.prototype.setUnit = function (unit) {
  * @method getUnit
  * @returns {String} unit - Currently set country unit
  *
- * @description MswClient uses a unit value to change the measurements and temperatures to default
+ * @description MswClient uses a unit value to change the measurements and temperature.
+ * i.e. us will have F instead of C for temperature. This method returns
+ * the currently set unit. The default value is 'uk' if not set.
  *
  * @example
  * // In your code get the set unit
- * MswClient.getUnit('uk'); //  returns value
+ * MswClient.getUnit(); //  returns value 'uk'
+ *
+ * MswClient.setUnit('us');
+ *
+ * MswClient.getUnit(); //  returns value 'us'
  *
  */
 MswClient.prototype.getUnit = function () {

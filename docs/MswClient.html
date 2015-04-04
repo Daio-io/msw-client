@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: MswClient</title>
+    <title>JSDoc: Namespace: MswClient</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: MswClient</h1>
+    <h1 class="page-title">Namespace: MswClient</h1>
     
     
 
@@ -38,76 +38,10 @@
     
     
         
-<dt>
-    <h4 class="name" id="MswClient"><span class="type-signature"></span>new MswClient<span class="signature">(_config)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        The MswClient allows easy communication with the Magic Seaweed API.
-Configuration apikey and spot_id are required on creation. Optional fields can also
-be passed in with the configuration if required.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
+            <div class="description">List of valid countries that can be used for data unit responses</div>
         
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>_config</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">configuration object needed to instantiate client</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
+        
+        
 <dl class="details">
     
         
@@ -141,31 +75,8 @@ be passed in with the configuration if required.
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
         
-    <pre class="prettyprint"><code>// Create new instance of MswClient
-var MSW = require('msw-client');
-var MswClient = new MSW({
-    apikey: 'YOUR_API_KEY',
-    spot_id: 2, // must be a number
-    fields: ['timestamp', 'wind'] // Optional array of fields
-});</code></pre>
-
-    
-</dd>
-
+        
     
     </div>
     
@@ -278,7 +189,7 @@ If you try to add an existing field it will not duplicate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line117">line 117</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line198">line 198</a>
     </li></ul></dd>
     
     
@@ -406,7 +317,7 @@ If you try to add an existing field it will not duplicate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line147">line 147</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line228">line 228</a>
     </li></ul></dd>
     
     
@@ -484,7 +395,7 @@ data from those fields. This method allows you to get a list of fields set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line181">line 181</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line262">line 262</a>
     </li></ul></dd>
     
     
@@ -582,7 +493,7 @@ for the Magic Seaweed API.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line89">line 89</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line150">line 150</a>
     </li></ul></dd>
     
     
@@ -680,7 +591,7 @@ successful request. This method allows you to get the current spot id for reques
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line70">line 70</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line81">line 81</a>
     </li></ul></dd>
     
     
@@ -729,6 +640,109 @@ successful request. This method allows you to get the current spot id for reques
         
     <pre class="prettyprint"><code>// In your code get spot id
 MswClient.getSpotId(); //  return value</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getUnit"><span class="type-signature"></span>getUnit<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        MswClient uses a unit value to change the measurements and temperature.
+i.e. us will have F instead of C for temperature. This method returns
+the currently set unit. The default value is 'uk' if not set.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line126">line 126</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    unit - Currently set country unit
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">String</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// In your code get the set unit
+MswClient.getUnit(); //  returns value 'uk'
+
+MswClient.setUnit('us');
+
+MswClient.getUnit(); //  returns value 'us'</code></pre>
 
     
 </dd>
@@ -827,7 +841,7 @@ If you try to remove a field that does not it exist, it will be ignored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line202">line 202</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line283">line 283</a>
     </li></ul></dd>
     
     
@@ -905,7 +919,7 @@ data from those fields. This method allows you to remove all fields set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line230">line 230</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line311">line 311</a>
     </li></ul></dd>
     
     
@@ -1030,7 +1044,7 @@ MswClient.removeFields();
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line252">line 252</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line333">line 333</a>
     </li></ul></dd>
     
     
@@ -1167,7 +1181,7 @@ http://magicseaweed.com/Porthcawl-Rest-Bay-Surf-Report/1449/ - spot id is the la
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line44">line 44</a>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line55">line 55</a>
     </li></ul></dd>
     
     
@@ -1198,6 +1212,131 @@ MswClient.setSpotId(5); //  change spot id to location 5</code></pre>
     
 </dd>
 
+        
+            
+<dt>
+    <h4 class="name" id="setUnit"><span class="type-signature"></span>setUnit<span class="signature">(unit)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        MswClient uses a unit value to change the measurements and temperature.
+i.e. us will have F instead of C for temperature.
+You can set the unit to one of these valid values: 'uk', 'us' or 'eu'. This defaults to 'uk' if not set.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>unit</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Unit country code - 'uk', 'us' or 'eu'</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="msw.client.js.html">msw.client.js</a>, <a href="msw.client.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// In your code set a new spot id
+MswClient.setUnit('us'); //  set Unit to us e.g. temperature will be F</code></pre>
+
+    
+</dd>
+
         </dl>
     
     
@@ -1214,13 +1353,13 @@ MswClient.setSpotId(5); //  change spot id to location 5</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-MswClient.html">MswClient</a></li></ul><h3>Classes</h3><ul><li><a href="MswClient.html">MswClient</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-MswClient.html">MswClient</a></li></ul><h3>Classes</h3><ul><li><a href="MswClient.html">MswClient</a></li></ul><h3>Namespaces</h3><ul></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sat Mar 21 2015 13:38:27 GMT-0000 (GMT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sat Apr 04 2015 23:42:01 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>

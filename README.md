@@ -22,6 +22,8 @@ firstly you need to install into your dependencies:
 
     npm install msw-client --save
 
+### Constructor, API key and SpotId
+
 Then simply create an instance of the client:
 
 ```javascript
@@ -58,6 +60,40 @@ MswClient.request(function (err, response) {
 ```
 
 The response will be an array of objects as documented [MSW API](http://magicseaweed.com/developer/forecast-api)
+
+
+### Units
+
+As of version 1.1.0 you can now set the unit to your country region so that measurements and temperature are returned as you would expect in your region.
+
+e.g. temperature returns as F for us requests.
+
+There are three valid unit types: 'uk', 'us' or 'eu'.
+
+You can set units on the constructor:
+
+```javascript
+var MSW = require('msw-client');
+var MswClient = new MSW({
+    apikey: 'YOUR_API_KEY',
+    spot_id: 2 // must be a number
+    unit: 'us' // must be a string
+});
+```
+or via the setUnit function
+
+```javascript
+MswClient.setUnit('us');
+MswClient.getUnit(); returns 'us';
+```
+
+If not set it will default to uk
+
+```javascript
+MswClient.getUnit(); returns 'uk';
+```
+
+### Fields
 
 You can also add fields to filter the data you want.
 
