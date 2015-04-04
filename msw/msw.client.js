@@ -8,8 +8,6 @@
 var got = require('got');
 
 /**
- * @namespace MswClient
- *
  * @description List of valid countries that can be used for data unit responses
  * @type {string[]}
  */
