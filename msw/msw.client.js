@@ -5,7 +5,7 @@
  * @module MswClient
  */
 
-var request = require('request');
+var got = require('got');
 
 /**
  * Magic Seaweed Client Object
@@ -277,7 +277,7 @@ MswClient.prototype.request = function (callback) {
 
     var url = this.getRequestEndpoint();
 
-    request.get(url, function (error, response, body) {
+    got.get(url, function (error, body, response) {
 
         var statusCode = response.statusCode;
 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "docs" : "jsdoc ./msw/msw.client.js -d ./docs",
+    "docs": "jsdoc ./msw/msw.client.js -d ./docs",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
   },
@@ -27,7 +27,7 @@
   "author": "Daveloper87",
   "license": "ISC",
   "dependencies": {
-    "request": "^2.53.0"
+    "got": "^2.6.0"
   },
   "devDependencies": {
     "chai": "^2.1.1",
