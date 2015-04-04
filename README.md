@@ -66,7 +66,7 @@ The response will be an array of objects as documented [MSW API](http://magicsea
 
 As of version 1.1.0 you can now set the unit to your country region so that measurements and temperature are returned as you would expect in your region.
 
-e.g. temperature returns as F for us requests.
+e.g. temperature returns as F for US requests.
 
 There are three valid unit types: 'uk', 'us' or 'eu'.
 
