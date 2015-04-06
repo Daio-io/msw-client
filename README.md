@@ -84,13 +84,13 @@ or via the setUnits function
 
 ```javascript
 MswClient.setUnits('us');
-MswClient.getUnits(); returns 'us';
+MswClient.getUnits(); // returns 'us';
 ```
 
 If not set it will default to uk
 
 ```javascript
-MswClient.getUnits(); returns 'uk';
+MswClient.getUnits(); // returns 'uk';
 ```
 
 ### Fields
