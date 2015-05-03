@@ -6,7 +6,7 @@
  */
 
 var got = require('got');
-var Promise = require('promise');
+var MswPromise = require('promise');
 
 /**
  * @description List of valid countries that can be used for data units responses
@@ -394,7 +394,7 @@ MswClient.prototype.exec = function () {
     var request = this.request;
     var url = this.getRequestEndpoint();
     
-    return new Promise(function (resolve, reject) {
+    return new MswPromise(function (resolve, reject) {
 
         request(function(err, data){
 
