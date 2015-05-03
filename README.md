@@ -58,8 +58,17 @@ MswClient.request(function (err, response) {
     console.log(response);
 });
 ```
+To make a request with promises call:
 
-The response will be an array of objects as documented [MSW API](http://magicseaweed.com/developer/forecast-api)
+```javascript
+MswClient.exec().then(function(data) {
+    console.log(data); 
+}).catch(function(err){
+    console.log(err);   
+});
+```
+
+These will respond with an array of objects as documented [MSW API](http://magicseaweed.com/developer/forecast-api)
 
 
 ### Units

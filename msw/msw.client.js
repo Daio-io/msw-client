@@ -389,6 +389,27 @@ MswClient.prototype.request = function (callback, endpoint) {
     });
 };
 
+/**
+ * Makes a promise request to the Magic Seaweed API
+ * @memberOf MswClient
+ * @instance
+ * @method exec
+ *
+ * @description Allows you to execute a request with a returned promise to get data.
+ * @returns {Promise} - Promise data request
+ * @example
+ * // In your code to make promise request
+ * MswClient.exec().then(function(data) {
+ *
+ *      console.log(data); // This will return Array of Objects as per Magic Seaweed response Documentation
+ *
+ * }).catch(function(err){
+ *
+ *     console.log(err); // This will return the error object
+ *
+ * });
+ *
+ */
 MswClient.prototype.exec = function () {
 
     var request = this.request;
