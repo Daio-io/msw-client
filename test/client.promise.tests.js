@@ -1,30 +1,22 @@
 var expect = require('chai').expect;
-var nock = require('nock');
+var mswMock = require('./mocking/endpoint.mock');
 var Promise = require('promise');
-
 var MswClient = require('../index');
 
 describe('API Promise Requests', function () {
 
     beforeEach(function (done) {
 
-        nock.cleanAll();
+        mswMock.cleanUp();
         done();
+
     });
     
     it('should return a promise when called via exec', function() {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, [
-                {mockData: 'mocked'},
-                {moreMockData: 'mocked'}
-            ]);
+        mswMock.mockGoodResponse();
 
         expect(Client.exec()).to.be.an.instanceof(Promise);
 
@@ -35,12 +27,7 @@ describe('API Promise Requests', function () {
 
         var Client = new MswClient({apikey: 'bad_api', spot_id: 1});
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(500);
+        mswMock.mockInvalidApiKey();
 
         Client.exec().then(function(data){
 
@@ -51,6 +38,7 @@ describe('API Promise Requests', function () {
             expect(err.status).to.eql('Error');
             expect(err.msg).to.eql('Invalid API key or request');
 
+            done();
         })
 
 
@@ -62,18 +50,7 @@ describe('API Promise Requests', function () {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: invalidSpotId});
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, {
-                error_response: {
-                    code: 501,
-                    error_msg: "Invalid parameters were supplied and did " +
-                        "not pass our validation, please double check your request."
-                }
-            });
+        mswMock.mockInvalidParameters();
 
         Client.exec().catch(function (err) {
 
@@ -91,15 +68,7 @@ describe('API Promise Requests', function () {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, [
-                {mockData: 'mocked'},
-                {moreMockData: 'mocked'}
-            ]);
+        mswMock.mockGoodResponse();
 
         Client.exec().then(function (data) {
 
@@ -120,16 +89,9 @@ describe('API Promise Requests', function () {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
-        Client.addField('invalid_field');
+        mswMock.mockNotJson();
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, 'this_is_not_json');
-
-        Client.exec.catch(function (err) {
+        Client.exec().catch(function (err) {
 
             expect(err).to.not.be.undefined;
             expect(err.status).to.eql('Error');
