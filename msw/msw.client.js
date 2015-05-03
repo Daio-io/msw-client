@@ -414,7 +414,7 @@ MswClient.prototype.exec = function () {
 
     var request = this.request;
     var url = this.getRequestEndpoint();
-    
+
     return new MswPromise(function (resolve, reject) {
 
         request(function(err, data){
