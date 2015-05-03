@@ -6,6 +6,7 @@
  */
 
 var got = require('got');
+var Promise = require('promise');
 
 /**
  * @description List of valid countries that can be used for data units responses
@@ -47,7 +48,7 @@ var MswClient = function (_config) {
     this.fields = _config.fields || [];
     this.baseUrl = 'http://magicseaweed.com/api/';
     this.requestEndpoint = this.baseUrl + this.apikey + '/forecast?spot_id=';
-    
+
 };
 
 /**
@@ -72,7 +73,7 @@ MswClient.prototype.setSpotId = function (spotId) {
     if (typeof spotId !== 'number') {
         throw new Error('Spot Id should be an integer value');
     }
-    
+
     this.spot_id = spotId;
 };
 
@@ -115,7 +116,7 @@ MswClient.prototype.getSpotId = function () {
 MswClient.prototype.setUnits = function (units) {
     if (typeof units !== 'string' || validUnits.indexOf(units) === -1) {
         throw new Error('Unit should be a lowercase String value and one of these valid' +
-        'units: ' + validUnits);
+            'units: ' + validUnits);
     }
 
     this.units = units;
@@ -164,7 +165,7 @@ MswClient.prototype.getRequestEndpoint = function () {
 
     var endpoint = this.requestEndpoint + this.spot_id + this._getUnitQueryString();
 
-    if (this.fields.length > 0){
+    if (this.fields.length > 0) {
 
         endpoint += '&fields=' + this.fields.join(',');
 
@@ -185,7 +186,7 @@ MswClient.prototype.getRequestEndpoint = function () {
  */
 MswClient.prototype._getUnitQueryString = function () {
 
-    if (this.units === 'uk'){
+    if (this.units === 'uk') {
         return '';
     }
 
@@ -214,8 +215,8 @@ MswClient.prototype._getUnitQueryString = function () {
  */
 MswClient.prototype.addField = function (fieldName) {
 
-    if(typeof fieldName !== 'string'){
-        throw new Error ('Field must be a string value');
+    if (typeof fieldName !== 'string') {
+        throw new Error('Field must be a string value');
     }
     if (this.fields.indexOf(fieldName) === -1) {
         this.fields.push(fieldName);
@@ -242,14 +243,14 @@ MswClient.prototype.addField = function (fieldName) {
  *
  */
 MswClient.prototype.addFields = function (fieldsArray) {
-    if ( !Array.isArray(fieldsArray) ) {
+    if (!Array.isArray(fieldsArray)) {
         throw new Error('Using addFields should be an Array. ' +
             'You can add string fields using addField()');
     }
 
     var fieldsLength = fieldsArray.length;
 
-    for (var i = 0; i < fieldsLength; i++){
+    for (var i = 0; i < fieldsLength; i++) {
 
         this.addField(fieldsArray[i]);
 
@@ -300,7 +301,7 @@ MswClient.prototype.removeField = function (fieldName) {
 
     var fieldIndex = this.fields.indexOf(fieldName);
 
-    if (fieldIndex !== -1){
+    if (fieldIndex !== -1) {
         this.fields.splice(fieldIndex, 1);
     }
 
@@ -352,9 +353,9 @@ MswClient.prototype.removeAllFields = function () {
  * });
  *
  */
-MswClient.prototype.request = function (callback) {
+MswClient.prototype.request = function (callback, endpoint) {
 
-    var url = this.getRequestEndpoint();
+    var url = endpoint || this.getRequestEndpoint();
 
     got.get(url, function (error, body, response) {
 
@@ -362,7 +363,7 @@ MswClient.prototype.request = function (callback) {
 
         if (statusCode === 500) {
 
-            callback( {status: 'Error', msg: 'Invalid API key or request'} );
+            callback({status: 'Error', msg: 'Invalid API key or request'});
 
         } else {
 
@@ -370,22 +371,47 @@ MswClient.prototype.request = function (callback) {
                 var data = JSON.parse(body);
 
                 if (data.error_response) {
-                    
-                    callback( {status: 'Error', msg: 'Invalid parameters'} );
+
+                    callback({status: 'Error', msg: 'Invalid parameters'});
                     return;
                 }
-                
+
                 callback(null, data);
-                
+
             } catch (err) {
 
-                callback( {status: 'Error', msg: 'Failed to Parse JSON response'} );
-            
+                callback({status: 'Error', msg: 'Failed to Parse JSON response'});
+
             }
 
         }
 
     });
+};
+
+MswClient.prototype.exec = function () {
+
+    var request = this.request;
+    var url = this.getRequestEndpoint();
+    
+    return new Promise(function (resolve, reject) {
+
+        request(function(err, data){
+
+            if(err){
+
+                reject(err);
+
+            } else {
+
+                resolve(data);
+
+            }
+
+        }, url);
+
+    });
+
 };
 
 module.exports = MswClient;
