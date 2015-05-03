@@ -14,6 +14,8 @@ Node client library to allow easy communication with the [Magic Seaweed API](htt
 You will Need to contact Magic Seaweed in order to [get an API key](http://magicseaweed.com/developer/sign-up).
 Please make sure you read their terms first.
 
+See [release notes](https://github.com/Daveloper87/msw-client/blob/master/RELEASE.md) for new release details.
+
 ## Usage
 
 Available on npm.
