@@ -1,13 +1,12 @@
 var expect = require('chai').expect;
-var nock = require('nock');
-
+var mswMock = require('./mocking/endpoint.mock');
 var MswClient = require('../index');
 
 describe('API Requests', function () {
 
     beforeEach(function (done) {
 
-        nock.cleanAll();
+        mswMock.cleanUp();
         done();
     });
 
@@ -15,12 +14,7 @@ describe('API Requests', function () {
 
         var Client = new MswClient({apikey: 'bad_api', spot_id: 1});
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(500);
+        mswMock.mockInvalidApiKey();
 
         Client.request(function (err, response) {
 
@@ -42,18 +36,7 @@ describe('API Requests', function () {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: invalidSpotId});
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, {
-                error_response: {
-                    code: 501,
-                    error_msg: "Invalid parameters were supplied and did " +
-                        "not pass our validation, please double check your request."
-                }
-            });
+        mswMock.mockInvalidParameters();
 
         Client.request(function (err, response) {
 
@@ -71,15 +54,7 @@ describe('API Requests', function () {
 
         var Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, [
-                {mockData: 'mocked'},
-                {moreMockData: 'mocked'}
-            ]);
+        mswMock.mockGoodResponse();
 
         Client.request(function (err, response) {
 
@@ -103,12 +78,7 @@ describe('API Requests', function () {
 
         Client.addField('invalid_field');
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, []);
+        mswMock.mockEmptyResponse();
 
         Client.request(function (err, response) {
 
@@ -127,12 +97,7 @@ describe('API Requests', function () {
 
         Client.addField('invalid_field');
 
-        nock('http://magicseaweed.com')
-            .filteringPath(function (path) {
-                return '/';
-            })
-            .get('/')
-            .reply(200, 'this_is_not_json');
+        mswMock.mockNotJson();
 
         Client.request(function (err, response) {
 
