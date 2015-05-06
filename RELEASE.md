@@ -2,7 +2,7 @@
 
 ### Release v1.2.3
 
-- .npmignore added to remove unwanted files from release
+- Minor improvements to size of package
 
 ### Release v1.2.2
 
