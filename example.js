@@ -8,6 +8,7 @@ var msw = new MswClient({
 
     apikey: process.env.MSW_KEY,
     spot_id: 1449
+
 });
 
 // ** Making a Request ** //
@@ -21,7 +22,6 @@ msw.request(function(err, response){
 
 // With Promises
 msw.exec().then(function(data){
-
 
     console.log('Promise request: ', data);
 
