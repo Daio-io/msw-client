@@ -1,0 +1,22 @@
+#IDE
+.idea
+
+# Node
+node_modules
+*.log
+*.logs
+
+# Istanbul Coverage
+coverage
+
+# jsdoc
+out
+
+# Notes
+RELEASE.md
+
+# Tests
+test
+
+# Docs
+docs
