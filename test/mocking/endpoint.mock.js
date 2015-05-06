@@ -68,6 +68,16 @@ module.exports = {
             .reply(500);
 
     },
+
+    mockRequestFail: function() {
+
+        nock('http://magicseaweed.com')
+            .filteringPath(function (path) {
+                return '/';
+            })
+            .get('/')
+
+    },
     
     cleanUp: function() {
         

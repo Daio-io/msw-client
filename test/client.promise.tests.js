@@ -36,7 +36,7 @@ describe('API Promise Requests', function () {
         }).catch(function(err){
             
             expect(err.status).to.eql('Error');
-            expect(err.msg).to.eql('Invalid API key or request');
+            expect(err.msg).to.eql('Invalid API key or request may have failed');
 
             done();
         })

@@ -359,11 +359,9 @@ MswClient.prototype.request = function (callback, endpoint) {
 
     got.get(url, function (error, body, response) {
 
-        var statusCode = response.statusCode;
+        if (error) {
 
-        if (statusCode === 500) {
-
-            callback({status: 'Error', msg: 'Invalid API key or request'});
+            callback({status: 'Error', msg: 'Invalid API key or request may have failed'});
 
         } else {
 
@@ -417,9 +415,9 @@ MswClient.prototype.exec = function () {
 
     return new MswPromise(function (resolve, reject) {
 
-        request(function(err, data){
+        request(function (err, data) {
 
-            if(err){
+            if (err) {
 
                 reject(err);
 

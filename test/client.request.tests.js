@@ -21,7 +21,7 @@ describe('API Requests', function () {
             expect(err).to.not.be.undefined;
             expect(response).to.be.undefined;
             expect(err.status).to.eql('Error');
-            expect(err.msg).to.eql('Invalid API key or request');
+            expect(err.msg).to.eql('Invalid API key or request may have failed');
 
             done();
 
@@ -104,6 +104,24 @@ describe('API Requests', function () {
             expect(err).to.not.be.undefined;
             expect(err.status).to.eql('Error');
             expect(err.msg).to.eql('Failed to Parse JSON response');
+
+            done();
+
+        });
+
+    });
+
+    it('should return an error if request to MSW fails', function (done) {
+
+        var Client = new MswClient({apikey: 'apikey', spot_id: 1});
+
+        mswMock.mockRequestFail();
+
+        Client.request(function (err, response) {
+
+            expect(err).to.not.be.undefined;
+            expect(err.status).to.eql('Error');
+            expect(err.msg).to.eql('Invalid API key or request may have failed');
 
             done();
 
