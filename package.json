@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Magic Seaweed API forecast data client",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "author": "Daveloper87",
   "license": "ISC",
   "dependencies": {
-    "got": "^2.6.0",
+    "got": "^3.0.0",
     "promise": "^7.0.1"
   },
   "devDependencies": {
