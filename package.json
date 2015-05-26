@@ -1,6 +1,6 @@
 {
   "name": "msw-client",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Magic Seaweed API forecast data client",
   "main": "index.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "jscoverage": "^0.5.9",
     "mocha": "^2.2.1",
     "mocha-lcov-reporter": "0.0.2",
-    "nock": "^1.1.0",
+    "nock": "^2.2.0",
     "nodeunit": "^0.9.1"
   }
 }
