@@ -31,7 +31,7 @@
     "promise": "^7.0.1"
   },
   "devDependencies": {
-    "chai": "^2.1.1",
+    "chai": "^3.0.0",
     "coveralls": "^2.11.2",
     "gulp-mocha": "^2.0.0",
     "istanbul": "^0.3.8",
