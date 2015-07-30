@@ -1,5 +1,9 @@
 # Release Notes
 
+### Release v1.2.4
+
+- Updated got package
+
 ### Release v1.2.3
 
 - Minor improvements to size of package
