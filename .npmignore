@@ -10,13 +10,15 @@ node_modules
 coverage
 
 # jsdoc
-out
+docs
 
 # Notes
 RELEASE.md
 
 # Tests
 test
+example.js
+.travis.yml
 
 # Docs
 docs
