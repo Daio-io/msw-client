@@ -27,7 +27,7 @@
   "author": "Daveloper87",
   "license": "ISC",
   "dependencies": {
-    "got": "^3.0.0",
+    "got": "^4.0.0",
     "promise": "^7.0.1"
   },
   "devDependencies": {
