@@ -64,9 +64,9 @@ To make a request with promises call:
 
 ```javascript
 MswClient.exec().then(function(data) {
-    console.log(data); 
+    console.log(data);
 }).catch(function(err){
-    console.log(err);   
+    console.log(err);
 });
 ```
 
@@ -138,14 +138,4 @@ A list of fields are available based on the response data. More details here: [M
 
 Feel free to submit issues and contribute.
 
-## TODO
-
-This project is in active development and will be updated. (No breaking changes planned).
-
-- Event Emitters 
-
 Surfs Up!
-
-
-
-
