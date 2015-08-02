@@ -357,6 +357,10 @@ MswClient.prototype.request = function (callback, endpoint) {
 
     var url = endpoint || this.getRequestEndpoint();
 
+    if (typeof callback !== 'function') {
+      return this.exec()
+    }
+
     got.get(url, function (error, body) {
 
         if (error) {

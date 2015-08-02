@@ -20,8 +20,8 @@ msw.request(function(err, response){
 
 });
 
-// With Promises
-msw.exec().then(function(data){
+// With Promises no callback provided returns promise
+msw.request().then(function(data){
 
     console.log('Promise request: ', data);
 
