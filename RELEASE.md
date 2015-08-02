@@ -1,5 +1,9 @@
 # Release Notes
 
+### Release v1.3.0
+
+- Making a request without a callback now returns a promise
+
 ### Release v1.2.4
 
 - Updated got package

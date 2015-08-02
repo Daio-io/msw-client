@@ -335,6 +335,7 @@ MswClient.prototype.removeAllFields = function () {
  * @instance
  * @method request
  * @param {function} callback - Callback function which takes an error and data parameter. callback(err, data);
+ * callback is now optional as of version 1.3.0. If not provided, a Promise will be returned.
  *
  * @description Allows you to make a request to return data from the Magic Seaweed API.
  *
@@ -356,6 +357,10 @@ MswClient.prototype.removeAllFields = function () {
 MswClient.prototype.request = function (callback, endpoint) {
 
     var url = endpoint || this.getRequestEndpoint();
+
+    if (typeof callback !== 'function') {
+      return this.exec();
+    }
 
     got.get(url, function (error, body) {
 
