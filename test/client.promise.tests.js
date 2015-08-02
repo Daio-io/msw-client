@@ -102,6 +102,28 @@ describe('API Promise Requests', function () {
         });
 
     });
+  
+    it('should return promise if request called without callback', function () {
+
+      var Client = new MswClient({apikey: 'apikey', spot_id: 1});
+
+      mswMock.mockGoodResponse();
+
+      expect(Client.request()).to.be.an.instanceof(Promise);
+
+    });
+  
+    it('should return promise if request callback is not a function', function () {
+
+      var Client = new MswClient({apikey: 'apikey', spot_id: 1});
+
+      mswMock.mockGoodResponse();
+
+      expect(Client.request({})).to.be.an.instanceof(Promise);
+      expect(Client.request([])).to.be.an.instanceof(Promise);
+      expect(Client.request('hello')).to.be.an.instanceof(Promise);
+
+    });
 
 
 });
