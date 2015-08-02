@@ -63,7 +63,7 @@ MswClient.request(function (err, response) {
 To make a request with promises call request without a callback:
 
 ```javascript
-MswClient.exec().then(function(data) {
+MswClient.request().then(function(data) {
     console.log(data);
 }).catch(function(err){
     console.log(err);
