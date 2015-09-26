@@ -75,6 +75,7 @@ MswClient.prototype.setSpotId = function (spotId) {
     }
 
     this.spot_id = spotId;
+    return this;
 };
 
 /**
@@ -120,6 +121,8 @@ MswClient.prototype.setUnits = function (units) {
     }
 
     this.units = units;
+    return this;
+
 };
 
 /**
@@ -221,7 +224,7 @@ MswClient.prototype.addField = function (fieldName) {
     if (this.fields.indexOf(fieldName) === -1) {
         this.fields.push(fieldName);
     }
-
+    return this;
 };
 
 /**
@@ -251,10 +254,9 @@ MswClient.prototype.addFields = function (fieldsArray) {
     var fieldsLength = fieldsArray.length;
 
     for (var i = 0; i < fieldsLength; i++) {
-
         this.addField(fieldsArray[i]);
-
     }
+    return this;
 
 };
 
