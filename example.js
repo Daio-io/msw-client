@@ -11,6 +11,9 @@ var msw = new MswClient({
 
 });
 
+// You can chain setters and fields
+msw.setSpotId(1449).setUnits('uk').addField('');
+
 // ** Making a Request ** //
 
 // Classic Request
