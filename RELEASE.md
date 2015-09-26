@@ -1,5 +1,9 @@
 # Release Notes
 
+### Release v1.4.0
+
+- You can now chain setters to build request
+
 ### Release v1.3.0
 
 - Making a request without a callback now returns a promise
