@@ -34,7 +34,7 @@
     "chai": "^3.0.0",
     "coveralls": "^2.11.2",
     "gulp-mocha": "^2.0.0",
-    "istanbul": "^0.3.8",
+    "istanbul": "^0.4.0",
     "jscoverage": "^0.6.0",
     "mocha": "^2.2.1",
     "mocha-lcov-reporter": "1.0.0",
