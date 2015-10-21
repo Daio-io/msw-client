@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Daio-io/msw-client.svg)](https://travis-ci.org/Daio-io/msw-client)
-[![Coverage Status](https://coveralls.io/repos/Daio-io/msw-client/badge.svg)](https://coveralls.io/r/Daio-io/msw-client)
+[![Coverage Status](https://coveralls.io/repos/Daio-io/msw-client/badge.svg?branch=master&service=github)](https://coveralls.io/github/Daio-io/msw-client?branch=master)
 [![Code Climate](https://codeclimate.com/github/Daio-io/msw-client/badges/gpa.svg)](https://codeclimate.com/github/Daio-io/msw-client)
 [![NPM](https://img.shields.io/npm/v/msw-client.svg)](https://www.npmjs.com/package/msw-client)
 [![Dependency Status](https://img.shields.io/david/Daio-io/msw-client.svg)](https://david-dm.org/Daio-io/msw-client)
