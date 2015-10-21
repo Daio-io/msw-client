@@ -1,5 +1,9 @@
 # Release Notes
 
+### Release v1.4.1
+
+- Updated dependencies to increase request performance
+
 ### Release v1.4.0
 
 - You can now chain setters to build request
