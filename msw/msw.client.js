@@ -5,14 +5,13 @@
  * @module MswClient
  */
 
-var got = require('got');
-var MswPromise = require('promise');
+const got = require('got');
 
 /**
  * @description List of valid countries that can be used for data units responses
  * @type {string[]}
  */
-var validUnits = ['uk', 'us', 'eu'];
+const validUnits = ['uk', 'us', 'eu'];
 
 /**
  * Magic Seaweed Client Object
@@ -26,28 +25,28 @@ var validUnits = ['uk', 'us', 'eu'];
  *
  * @example
  * // Create new instance of MswClient
- * var MSW = require('msw-client');
- * var MswClient = new MSW({
+ * const MSW = require('msw-client');
+ * const MswClient = new MSW({
  *     apikey: 'YOUR_API_KEY',
  *     spot_id: 2, // must be a number
  *     fields: ['timestamp', 'wind'] // Optional array of fields
  * });
  *
  */
-var MswClient = function (_config) {
+const MswClient = function (_config) {
 
-    if (!(this instanceof MswClient)) {
-        return new MswClient(_config);
-    }
+  if (!(this instanceof MswClient)) {
+    return new MswClient(_config);
+  }
 
-    var units = _config.units || 'uk';
+  let units = _config.units || 'uk';
 
-    this.apikey = _config.apikey;
-    this.setSpotId(_config.spot_id);
-    this.setUnits(units);
-    this.fields = _config.fields || [];
-    this.baseUrl = 'http://magicseaweed.com/api/';
-    this.requestEndpoint = this.baseUrl + this.apikey + '/forecast?spot_id=';
+  this.apikey = _config.apikey;
+  this.setSpotId(_config.spot_id);
+  this.setUnits(units);
+  this.fields = _config.fields || [];
+  this.baseUrl = 'http://magicseaweed.com/api/';
+  this.requestEndpoint = this.baseUrl + this.apikey + '/forecast?spot_id=';
 
 };
 
@@ -70,12 +69,12 @@ var MswClient = function (_config) {
  *
  */
 MswClient.prototype.setSpotId = function (spotId) {
-    if (typeof spotId !== 'number') {
-        throw new Error('Spot Id should be an integer value');
-    }
+  if (typeof spotId !== 'number') {
+    throw new Error('Spot Id should be an integer value');
+  }
 
-    this.spot_id = spotId;
-    return this;
+  this.spot_id = spotId;
+  return this;
 };
 
 /**
@@ -94,7 +93,7 @@ MswClient.prototype.setSpotId = function (spotId) {
  *
  */
 MswClient.prototype.getSpotId = function () {
-    return this.spot_id;
+  return this.spot_id;
 };
 
 
@@ -115,14 +114,12 @@ MswClient.prototype.getSpotId = function () {
  *
  */
 MswClient.prototype.setUnits = function (units) {
-    if (typeof units !== 'string' || validUnits.indexOf(units) === -1) {
-        throw new Error('Unit should be a lowercase String value and one of these valid' +
-            'units: ' + validUnits);
-    }
-
-    this.units = units;
-    return this;
-
+  if (typeof units !== 'string' || validUnits.indexOf(units) === -1) {
+    throw new Error('Unit should be a lowercase String value and one of these valid' +
+      'units: ' + validUnits);
+  }
+  this.units = units;
+  return this;
 };
 
 /**
@@ -146,7 +143,7 @@ MswClient.prototype.setUnits = function (units) {
  *
  */
 MswClient.prototype.getUnits = function () {
-    return this.units;
+  return this.units;
 };
 
 /**
@@ -166,15 +163,13 @@ MswClient.prototype.getUnits = function () {
  */
 MswClient.prototype.getRequestEndpoint = function () {
 
-    var endpoint = this.requestEndpoint + this.spot_id + this._getUnitQueryString();
+  let endpoint = this.requestEndpoint + this.spot_id + this._getUnitQueryString();
 
-    if (this.fields.length > 0) {
+  if (this.fields.length > 0) {
+    endpoint += '&fields=' + this.fields.join(',');
+  }
 
-        endpoint += '&fields=' + this.fields.join(',');
-
-    }
-
-    return endpoint;
+  return endpoint;
 };
 
 /**
@@ -189,11 +184,11 @@ MswClient.prototype.getRequestEndpoint = function () {
  */
 MswClient.prototype._getUnitQueryString = function () {
 
-    if (this.units === 'uk') {
-        return '';
-    }
+  if (this.units === 'uk') {
+    return '';
+  }
 
-    return '&units=' + this.units;
+  return '&units=' + this.units;
 
 };
 
@@ -218,13 +213,13 @@ MswClient.prototype._getUnitQueryString = function () {
  */
 MswClient.prototype.addField = function (fieldName) {
 
-    if (typeof fieldName !== 'string') {
-        throw new Error('Field must be a string value');
-    }
-    if (this.fields.indexOf(fieldName) === -1) {
-        this.fields.push(fieldName);
-    }
-    return this;
+  if (typeof fieldName !== 'string') {
+    throw new Error('Field must be a string value');
+  }
+  if (this.fields.indexOf(fieldName) === -1) {
+    this.fields.push(fieldName);
+  }
+  return this;
 };
 
 /**
@@ -246,18 +241,15 @@ MswClient.prototype.addField = function (fieldName) {
  *
  */
 MswClient.prototype.addFields = function (fieldsArray) {
-    if (!Array.isArray(fieldsArray)) {
-        throw new Error('Using addFields should be an Array. ' +
-            'You can add string fields using addField()');
-    }
+  if (!Array.isArray(fieldsArray)) {
+    throw new Error('Using addFields should be an Array. ' +
+      'You can add string fields using addField()');
+  }
 
-    var fieldsLength = fieldsArray.length;
-
-    for (var i = 0; i < fieldsLength; i++) {
-        this.addField(fieldsArray[i]);
-    }
-    return this;
-
+  for (let i = 0, len = fieldsArray.length ; i < len; i++) {
+    this.addField(fieldsArray[i]);
+  }
+  return this;
 };
 
 /**
@@ -276,9 +268,7 @@ MswClient.prototype.addFields = function (fieldsArray) {
  *
  */
 MswClient.prototype.getFields = function () {
-
-    return this.fields;
-
+  return this.fields;
 };
 
 /**
@@ -301,12 +291,11 @@ MswClient.prototype.getFields = function () {
  */
 MswClient.prototype.removeField = function (fieldName) {
 
-    var fieldIndex = this.fields.indexOf(fieldName);
+  let fieldIndex = this.fields.indexOf(fieldName);
 
-    if (fieldIndex !== -1) {
-        this.fields.splice(fieldIndex, 1);
-    }
-
+  if (fieldIndex !== -1) {
+    this.fields.splice(fieldIndex, 1);
+  }
 };
 
 /**
@@ -326,9 +315,7 @@ MswClient.prototype.removeField = function (fieldName) {
  *
  */
 MswClient.prototype.removeAllFields = function () {
-
-    this.fields = [];
-
+  this.fields = [];
 };
 
 /**
@@ -336,107 +323,42 @@ MswClient.prototype.removeAllFields = function () {
  * @memberOf MswClient
  * @instance
  * @method request
- * @param {function} callback - Callback function which takes an error and data parameter. callback(err, data);
- * callback is now optional as of version 1.3.0. If not provided, a Promise will be returned.
  *
  * @description Allows you to make a request to return data from the Magic Seaweed API.
  *
  * @example
  * // In your code to make a request
- * MswClient.request( function (err, data) {
- *
- *      if (err) {
- *          console.log(err); // {status: 'Error', msg: 'Error message here'}
- *          console.log(data); // undefined
- *      }
- *
- *      console.log(err); // undefined if no error
- *      console.log(data); // This will return Array of Objects as per Magic Seaweed response Documentation
- *
+ * msw.request().then(data => {
+ *  console.log(data);
+ * }).catch(err => {
+ *   console.log(err);
  * });
  *
  */
-MswClient.prototype.request = function (callback, endpoint) {
+MswClient.prototype.request = function () {
 
-    var url = endpoint || this.getRequestEndpoint();
+  let url = this.getRequestEndpoint();
 
-    if (typeof callback !== 'function') {
-      return this.exec();
-    }
+  return new Promise((resolve, reject) => {
 
-    got.get(url, function (error, body) {
+    got(url).then(response => {
+      try {
+        let data = JSON.parse(response.body);
 
-        if (error) {
-
-            callback({status: 'Error', msg: 'Invalid API key or request may have failed'});
-
+        if (data['error_response']) {
+          reject({status: 'Error', msg: 'Invalid parameters provided'})
         } else {
-
-            try {
-                var data = JSON.parse(body);
-
-                if (data.error_response) {
-
-                    callback({status: 'Error', msg: 'Invalid parameters'});
-                    return;
-                }
-
-                callback(null, data);
-
-            } catch (err) {
-
-                callback({status: 'Error', msg: 'Failed to Parse JSON response'});
-
-            }
-
+          resolve(data);
         }
+      } catch (err) {
+        reject({status: 'Error', msg: 'Failed to Parse JSON response'})
+      }
 
+    }).catch(error => {
+      reject({status:'Error', msg: 'Invalid API key or request may have failed'})
     });
-};
 
-/**
- * Makes a promise request to the Magic Seaweed API
- * @memberOf MswClient
- * @instance
- * @method exec
- *
- * @description Allows you to execute a request with a returned promise to get data.
- * @returns {Promise} - Promise data request
- * @example
- * // In your code to make promise request
- * MswClient.exec().then(function(data) {
- *
- *      console.log(data); // This will return Array of Objects as per Magic Seaweed response Documentation
- *
- * }).catch(function(err){
- *
- *     console.log(err); // This will return the error object
- *
- * });
- *
- */
-MswClient.prototype.exec = function () {
-
-    var request = this.request;
-    var url = this.getRequestEndpoint();
-
-    return new MswPromise(function (resolve, reject) {
-
-        request(function (err, data) {
-
-            if (err) {
-
-                reject(err);
-
-            } else {
-
-                resolve(data);
-
-            }
-
-        }, url);
-
-    });
+  });
 
 };
 

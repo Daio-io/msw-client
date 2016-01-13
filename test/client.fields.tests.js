@@ -1,7 +1,8 @@
-var expect = require('chai').expect;
-var nock = require('nock');
+'use strict';
+const expect = require('chai').expect;
+const nock = require('nock');
 
-var MswClient = require('../index');
+const MswClient = require('../index');
 
 describe('MSW Client Fields', function () {
 
@@ -9,9 +10,9 @@ describe('MSW Client Fields', function () {
 
         it('should be able to optionally set fields on client construction', function () {
 
-            var fieldsArray = ['field1', 'field2', 'field3'];
+            let fieldsArray = ['field1', 'field2', 'field3'];
 
-            var NewClient = new MswClient(
+            let NewClient = new MswClient(
                 {
                     apikey: 'apikey',
                     spot_id: 1,
@@ -30,7 +31,7 @@ describe('MSW Client Fields', function () {
 
     describe('Add and Remove Fields', function () {
 
-        var Client;
+        let Client;
 
         beforeEach(function (done) {
 
@@ -42,11 +43,11 @@ describe('MSW Client Fields', function () {
         it('should be able add individual fields', function () {
             
 
-            var newField = 'im_a_field';
+            let newField = 'im_a_field';
 
             Client.addField(newField);
 
-            var fields = Client.getFields();
+            let fields = Client.getFields();
 
             expect(fields).to.include(newField);
 
@@ -54,12 +55,12 @@ describe('MSW Client Fields', function () {
 
         it('should not add the same field twice', function () {
 
-            var newField = 'im_a_field';
+            let newField = 'im_a_field';
 
             Client.addField(newField);
             Client.addField(newField);
 
-            var fields = Client.getFields();
+            let fields = Client.getFields();
 
             expect(fields).to.include(newField);
 
@@ -68,7 +69,7 @@ describe('MSW Client Fields', function () {
 
         it('should be able to remove individual fields', function () {
 
-            var fieldToRemove = 'im_a_field';
+            let fieldToRemove = 'im_a_field';
 
             Client.addField(fieldToRemove);
 
@@ -82,8 +83,8 @@ describe('MSW Client Fields', function () {
 
         it('should not remove fields if field is not set', function () {
 
-            var field = 'im_a_field';
-            var notField = 'im_not_set';
+            let field = 'im_a_field';
+            let notField = 'im_not_set';
 
             Client.addField(field);
 
@@ -100,7 +101,7 @@ describe('MSW Client Fields', function () {
 
         it('should be able to remove all fields', function () {
 
-            var fieldsArray = ['field1', 'field2', 'field3'];
+            let fieldsArray = ['field1', 'field2', 'field3'];
 
             Client.addFields(fieldsArray);
 
@@ -162,7 +163,7 @@ describe('MSW Client Fields', function () {
 
     describe('Endpoint with Fields', function () {
 
-        var Client;
+        let Client;
 
         beforeEach(function (done) {
 
@@ -173,8 +174,8 @@ describe('MSW Client Fields', function () {
 
         it('should update the request endpoint with the set fields', function () {
 
-            var newField = 'im_a_field';
-            var newField2 = 'im_a_field_too';
+            let newField = 'im_a_field';
+            let newField2 = 'im_a_field_too';
 
             Client.addField(newField);
             Client.addField(newField2);
@@ -188,8 +189,8 @@ describe('MSW Client Fields', function () {
         
         it('should update the request endpoint if fields are removed', function () {
 
-            var newField = 'im_a_field';
-            var newField2 = 'im_a_field_too';
+            let newField = 'im_a_field';
+            let newField2 = 'im_a_field_too';
 
             Client.addField(newField);
             Client.addField(newField2);

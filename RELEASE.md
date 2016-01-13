@@ -1,5 +1,9 @@
 # Release Notes
 
+### Release v2.0.0
+
+- Update to for node 5+ (use version v1.4.1 for Node versions lower than 5)
+
 ### Release v1.4.1
 
 - Updated dependencies to increase request performance
