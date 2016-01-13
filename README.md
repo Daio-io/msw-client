@@ -18,7 +18,8 @@ See [release notes](https://github.com/Daveloper87/msw-client/blob/master/RELEAS
 
 ## Usage
 
-Available on npm.
+Available on npm. 
+**NOTE: Version 2.0.0 is only supported in Node 5+. For versions lower than Node 5 use msw-client v1.4.1**
 
 firstly you need to install into your dependencies:
 
@@ -29,8 +30,8 @@ firstly you need to install into your dependencies:
 Then simply create an instance of the client:
 
 ```javascript
-var MSW = require('msw-client');
-var MswClient = new MSW({
+const MSW = require('msw-client');
+const MswClient = new MSW({
     apikey: 'YOUR_API_KEY',
     spot_id: 2 // must be a number
 });
@@ -56,26 +57,10 @@ MswClient.setSpotId(3); // must be a number
 To make a request simply call:
 
 ```javascript
-MswClient.request(function (err, response) {
-    console.log(response);
-});
-```
-To make a request with promises call request without a callback:
-
-```javascript
-MswClient.request().then(function(data) {
-    console.log(data);
-}).catch(function(err){
-    console.log(err);
-});
-```
-call ```exec()``` for promises is still supported too:
-
-```javascript
-MswClient.exec().then(function(data) {
-    console.log(data);
-}).catch(function(err){
-    console.log(err);
+MswClient.request().then(data => {
+  console.log(data);
+}).catch(err => {
+  console.log(err);
 });
 ```
 
@@ -93,8 +78,8 @@ There are three valid unit types: 'uk', 'us' or 'eu'.
 You can set units on the constructor:
 
 ```javascript
-var MSW = require('msw-client');
-var MswClient = new MSW({
+const MSW = require('msw-client');
+const MswClient = new MSW({
     apikey: 'YOUR_API_KEY',
     spot_id: 2 // must be a number
     units: 'us' // must be a string
@@ -120,8 +105,8 @@ You can also add fields to filter the data you want.
 This can either be done via the constructor:
 
 ```javascript
-var MSW = require('msw-client');
-var MswClient = new MSW({
+const MSW = require('msw-client');
+const MswClient = new MSW({
     apikey: 'YOUR_API_KEY',
     spot_id: 2,
     fields: ['timestamp', 'wind'] // must be an array
