@@ -1,7 +1,8 @@
-var expect = require('chai').expect;
-var nock = require('nock');
+'use strict'
+const expect = require('chai').expect;
+const nock = require('nock');
 
-var MswClient = require('../index');
+const MswClient = require('../index');
 
 describe('MSW Client units', function () {
 
@@ -9,9 +10,9 @@ describe('MSW Client units', function () {
 
         it('should be able to optionally set units on client construction', function () {
 
-            var units = 'us';
+            let units = 'us';
 
-            var NewClient = new MswClient(
+            let NewClient = new MswClient(
                 {
                     apikey: 'apikey',
                     spot_id: 1,
@@ -30,7 +31,7 @@ describe('MSW Client units', function () {
 
     describe('get and set units', function () {
 
-        var Client;
+        let Client;
 
         beforeEach(function (done) {
 
@@ -42,11 +43,11 @@ describe('MSW Client units', function () {
         it('should be able add set units', function () {
 
 
-            var units = 'us';
+            let units = 'us';
 
             Client.setUnits(units);
 
-            var setUnits = Client.getUnits();
+            let setUnits = Client.getUnits();
 
             expect(setUnits).to.eql(units);
 
@@ -54,9 +55,9 @@ describe('MSW Client units', function () {
 
         it('should only except valid units', function () {
 
-            var validUnts = ['uk', 'us', 'uk'];
+            let validUnts = ['uk', 'us', 'uk'];
 
-            for (var i = 0; i < validUnts.length; i++) {
+            for (let i = 0; i < validUnts.length; i++) {
 
                 expect(function () {
 
@@ -66,7 +67,7 @@ describe('MSW Client units', function () {
 
             }
 
-            var invalidunits = 'pa';
+            let invalidunits = 'pa';
             expect(function () {
 
                 setUnits(invalidunits)
@@ -77,7 +78,7 @@ describe('MSW Client units', function () {
 
         it('should not allow upper case units', function () {
 
-            var upperunits = 'UK';
+            let upperunits = 'UK';
             expect(function () {
 
                 setUnits(upperunits)
@@ -88,8 +89,8 @@ describe('MSW Client units', function () {
 
         it('should be able to change units', function () {
 
-            var units = 'uk';
-            var unitsToChangeTo = 'eu';
+            let units = 'uk';
+            let unitsToChangeTo = 'eu';
 
             Client.setUnits(units);
 
@@ -135,7 +136,7 @@ describe('MSW Client units', function () {
 
     describe('Endpoint with units', function () {
 
-        var Client;
+        let Client;
 
         beforeEach(function (done) {
 
@@ -146,7 +147,7 @@ describe('MSW Client units', function () {
 
         it('should update the request endpoint with the set units', function () {
 
-            var units = 'us';
+            let units = 'us';
 
             Client.setUnits(units);
 
@@ -159,11 +160,11 @@ describe('MSW Client units', function () {
 
         it('should not show units if uk is set (default)', function () {
 
-            var units = 'uk';
+            let units = 'uk';
 
             Client.setUnits(units);
 
-            var endPoint = Client.getRequestEndpoint();
+            let endPoint = Client.getRequestEndpoint();
 
             expect(endPoint)
                 .to

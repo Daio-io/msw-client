@@ -1,6 +1,8 @@
-var expect = require('chai').expect;
+'use strict';
 
-var MswClient = require('../index');
+const expect = require('chai').expect;
+
+const MswClient = require('../index');
 
 describe('MSW Client Constructor', function () {
 
@@ -23,7 +25,7 @@ describe('MSW Client Constructor', function () {
 
     it('should return new client if created without new', function () {
 
-        var client = MswClient({apikey: 'key', spot_id: 1});
+        let client = MswClient({apikey: 'key', spot_id: 1});
 
         expect(client).to.be.an.instanceOf(MswClient);
 

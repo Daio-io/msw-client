@@ -1,10 +1,12 @@
-var expect = require('chai').expect;
+'use strict';
 
-var MswClient = require('../index');
+const expect = require('chai').expect;
+
+const MswClient = require('../index');
 
 describe('MSW Client Spot Id', function () {
 
-    var Client;
+    let Client;
 
     beforeEach(function (done) {
 

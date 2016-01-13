@@ -1,7 +1,8 @@
-var expect = require('chai').expect;
-var mswMock = require('./mocking/endpoint.mock');
-var Promise = require('promise');
-var MswClient = require('../index');
+'use strict';
+
+const expect = require('chai').expect;
+const mswMock = require('./mocking/endpoint.mock');
+const MswClient = require('../index');
 
 describe('API Promise Requests', function () {
 
@@ -11,25 +12,14 @@ describe('API Promise Requests', function () {
         done();
 
     });
-    
-    it('should return a promise when called via exec', function() {
-
-        var Client = new MswClient({apikey: 'apikey', spot_id: 1});
-
-        mswMock.mockGoodResponse();
-
-        expect(Client.exec()).to.be.an.instanceof(Promise);
-
-
-    });
 
     it('should reject promise if invalid API key was provided in request', function (done) {
 
-        var Client = new MswClient({apikey: 'bad_api', spot_id: 1});
+        let Client = new MswClient({apikey: 'bad_api', spot_id: 1});
 
         mswMock.mockInvalidApiKey();
 
-        Client.exec().then(function(data){
+        Client.request().then(function(data){
 
             expect(data).to.be.undefined;
 
@@ -46,17 +36,17 @@ describe('API Promise Requests', function () {
 
     it('should reject promise if location is not set correctly', function (done) {
 
-        var invalidSpotId = 23892739872398263;
+        let invalidSpotId = 23892739872398263;
 
-        var Client = new MswClient({apikey: 'apikey', spot_id: invalidSpotId});
+        let Client = new MswClient({apikey: 'apikey', spot_id: invalidSpotId});
 
         mswMock.mockInvalidParameters();
 
-        Client.exec().catch(function (err) {
+        Client.request().catch(function (err) {
 
             expect(err).to.not.be.undefined;
             expect(err.status).to.eql('Error');
-            expect(err.msg).to.eql('Invalid parameters');
+            expect(err.msg).to.eql('Invalid parameters provided');
 
             done();
 
@@ -66,11 +56,11 @@ describe('API Promise Requests', function () {
 
     it('should resolve promise to response data', function (done) {
 
-        var Client = new MswClient({apikey: 'apikey', spot_id: 1});
+        let Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
         mswMock.mockGoodResponse();
 
-        Client.exec().then(function (data) {
+        Client.request().then(function (data) {
 
             expect(data).to.be.an('Array');
             for (var i = 0; i < data.length; i++) {
@@ -87,11 +77,11 @@ describe('API Promise Requests', function () {
 
     it('should reject promise if data returned is not JSON', function (done) {
 
-        var Client = new MswClient({apikey: 'apikey', spot_id: 1});
+        let Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
         mswMock.mockNotJson();
 
-        Client.exec().catch(function (err) {
+        Client.request().catch(function (err) {
 
             expect(err).to.not.be.undefined;
             expect(err.status).to.eql('Error');
@@ -103,7 +93,7 @@ describe('API Promise Requests', function () {
 
     });
   
-    it('should return promise if request called without callback', function () {
+    it('should return promise', function () {
 
       var Client = new MswClient({apikey: 'apikey', spot_id: 1});
 
@@ -112,18 +102,5 @@ describe('API Promise Requests', function () {
       expect(Client.request()).to.be.an.instanceof(Promise);
 
     });
-  
-    it('should return promise if request callback is not a function', function () {
-
-      var Client = new MswClient({apikey: 'apikey', spot_id: 1});
-
-      mswMock.mockGoodResponse();
-
-      expect(Client.request({})).to.be.an.instanceof(Promise);
-      expect(Client.request([])).to.be.an.instanceof(Promise);
-      expect(Client.request('hello')).to.be.an.instanceof(Promise);
-
-    });
-
 
 });
