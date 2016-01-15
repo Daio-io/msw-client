@@ -8,6 +8,3 @@ node_modules
 
 # Istanbul Coverage
 coverage
-
-# jsdoc
-out
